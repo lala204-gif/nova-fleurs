@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA | Mon univers floral</title>
+
+<style>
+:root {
+  --beige: #f5eadc;
+  --cream: #fffaf1;
+  --brown: #8b6b50;
+  --muted: #5b4636;
+  --orange: #d97836;
+  --black: #000000;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--black);
+  background:
+    radial-gradient(ellipse at 10% 10%, #fffaf1, transparent 42%),
+    radial-gradient(ellipse at 90% 70%, #efd5b7, transparent 38%),
+    var(--beige);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button, select { font: inherit; }
+
+button:focus-visible, a:focus-visible, select:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
+/* Fleurs et feuilles */
+#garden {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.flower, .leaf {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  user-select: none;
+}
+
+.flower {
+  color: var(--orange);
+  line-height: 1;
+  filter: drop-shadow(0 5px 9px #b66a3320);
+  opacity: .76;
+}
+
+.flower span {
+  display: block;
+  animation: spin 30s linear infinite;
+}
+
+.flower:nth-child(3n) span {
+  animation-direction: reverse;
+  animation-duration: 42s;
+}
+
+.leaf {
+  width: 76px;
+  height: 35px;
+  border: 1px solid #82966c55;
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(135deg, #9cad842e, #dce5ca20);
+  backdrop-filter: blur(2px);
+}
+
+.leaf::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  width: 84%;
+  height: 1px;
+  background: #71875d65;
+  transform: rotate(-17deg);
+}
+
+/* Contenu */
+.site {
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  width: min(1160px, 90%);
+  margin: auto;
+  padding: 25px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #795e4528;
+}
+
+.logo {
+  color: var(--brown);
+  text-decoration: none;
+  font: 800 27px Arial, sans-serif;
+  letter-spacing: 5px;
+}
+
+.logo span { color: var(--orange); }
+
+nav {
+  display: flex;
+  gap: 23px;
+  font: 13px Arial, sans-serif;
+}
+
+nav a {
+  color: var(--brown);
+  text-decoration: none;
+}
+
+nav a:hover { color: var(--orange); }
+
+#language {
+  max-width: 155px;
+  padding: 10px;
+  border: 1px solid #795e4533;
+  border-radius: 30px;
+  color: var(--brown);
+  background: #fffaf1cc;
+  cursor: pointer;
+}
+
+/* Citation en haut à droite */
+#quote-note {
+  position: absolute;
+  top: 112px;
+  right: 6%;
+  width: min(265px, 35%);
+  padding: 15px 17px;
+  border-right: 2px solid #e7e7e777;
+  color: #000000;
+  text-align: right;
+  font: italic 17px/1.6 "Brush Script MT", "Segoe Script",
+        "URW Chancery L", cursive;
+  transform: rotate(3deg);
+}
+
+#quote-note p { margin: 0 0 7px; }
+
+#quote-note button {
+  border: 0;
+  background: transparent;
+  color: var(--orange);
+  font: 11px Arial, sans-serif;
+  cursor: pointer;
+  padding: 4px;
+}
+
+main {
+  width: min(1060px, 88%);
+  margin: auto;
+}
+
+.hero {
+  min-height: 76vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 130px 0 70px;
+  text-align: center;
+}
+
+.eyebrow, .section-label {
+  color: var(--orange);
+  font: 11px Arial, sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: clamp(53px, 9vw, 105px);
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -4px;
+  animation: appear 1s both;
+}
+
+h1 em {
+  color: var(--orange);
+  font-weight: 400;
+}
+
+.intro {
+  max-width: 530px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 22px;
+  border: 1px solid var(--brown);
+  border-radius: 35px;
+  background: var(--brown);
+  color: var(--cream);
+  text-decoration: none;
+  font: 12px Arial, sans-serif;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  background: #654a3a;
+}
+
+.btn.secondary {
+  background: transparent;
+  color: var(--black);
+  border-color: #000000;
+}
+
+#secret {
+  max-width: 500px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #00000030;
+  border-radius: 20px;
+  background: #fffaf1cc;
+  line-height: 1.8;
+}
+
+[hidden] { display: none !important; }
+
+section {
+  padding: 75px 0;
+  scroll-margin-top: 25px;
+}
+
+h2 {
+  margin: 15px 0 22px;
+  font-size: clamp(35px, 5vw, 55px);
+  font-weight: 400;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 45px;
+}
+
+.about-text {
+  color: var(--muted);
+  line-height: 1.95;
+}
+
+.about-card {
+  padding: 38px 28px;
+  border: 1px solid #eeeeee2c;
+  border-radius: 180px 180px 25px 25px;
+  background: #fffaf18c;
+  text-align: center;
+}
+
+.about-card .symbol {
+  color: var(--orange);
+  font-size: 75px;
+  animation: spin 35s linear infinite;
+}
+
+.about-card p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.quote-section {
+  text-align: center;
+}
+
+.quote-section blockquote {
+  margin: 25px auto;
+  max-width: 700px;
+  font-size: clamp(24px, 4vw, 38px);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+footer {
+  width: 90%;
+  margin: 20px auto 0;
+  padding: 25px 0;
+  border-top: 1px solid #795e4528;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  color: var(--muted);
+  font: 11px Arial, sans-serif;
+}
+
+[dir="rtl"] {
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+[dir="rtl"] #quote-note {
+  right: auto;
+  left: 6%;
+  text-align: left;
+  border-right: 0;
+  border-left: 2px solid #00000077;
+}
+
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+
+@keyframes appear {
+  from { opacity: 0; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (max-width: 700px) {
+  header { flex-wrap: wrap; }
+  nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  #quote-note {
+    top: 145px;
+    width: 43%;
+    font-size: 14px;
+  }
+  .hero { padding-top: 150px; }
+  h1 { letter-spacing: -2px; }
+  .about { grid-template-columns: 1fr; gap: 25px; }
+  .about-card { max-width: 380px; margin: auto; }
+  section { padding: 50px 0; }
+  footer { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Bouton élégant pour remonter en haut */
+.nova-footer button {
+  background: linear-gradient(135deg, #ff4500, #e63900);
+  color: #fffaf1;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 30px;
+  padding: 13px 25px;
+  font-size: 15px;
+  font-family: Georgia, serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(139, 107, 80, 0.2);
+  transition: all 0.3s ease;
+}
+
+.nova-footer button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 9px 20px rgba(139, 107, 80, 0.3);
+  background: #cc3700;
+}
+
+/* Pied de page NOVA */
+.nova-footer {
+  margin-top: 70px;
+  padding: 45px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #fffaf1, #f5eadc);
+  border-top: 1px solid #e8c7ad;
+  color: #5b4636;
+}
+
+.nova-footer h2 {
+  font-family: Georgia, serif;
+  font-size: 34px;
+  letter-spacing: 8px;
+  color: #ff4500;
+  margin-bottom: 12px;
+}
+
+.nova-footer p:first-of-type {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+
+.nova-footer p:last-of-type {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 22px;
+}
+
+.nova-footer h2::after {
+  content: " ✿ ❀ ✿";
+  display: block;
+  font-size: 15px;
+  letter-spacing: 5px;
+  margin-top: 12px;
+  color: #e63900;
+}
+
+#backToTop {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4500, #e63900);
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(230, 57, 0, 0.3);
+  z-index: 9999;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+#backToTop:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 9px 22px rgba(230, 57, 0, 0.4);
+}
+#backToTop.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* NOVA : mode nuit chic */
+body.dark-mode {
+  --beige: #151515;
+  --cream: #222222;
+  --brown: #ff5a1f;
+  --muted: #f0e6df;
+  --orange: #ff4500;
+  --black: #ffffff;
+
+  background: #151515 !important;
+  color: #f5e9e2;
+}
+
+body.dark-mode header,
+body.dark-mode nav,
+body.dark-mode section,
+body.dark-mode .nova-footer {
+  background-color: #1c1c1c;
+  color: #f5e9e2;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+  color: #ff5a1f;
+}
+
+body.dark-mode a {
+  color: #ff7043;
+}
+
+body.dark-mode .nova-footer {
+  border-top: 1px solid #ff4500;
+}
+
+body.dark-mode #backToTop {
+  background: linear-gradient(135deg, #ff4500, #c62800);
+}
+
+#themeToggle {
+  position: fixed;
+  top: 75px;
+right: 20px;
+  z-index: 10000;
+  padding: 11px 18px;
+  border: 1px solid #ff4500;
+  border-radius: 30px;
+  background: #151515;
+  color: #ff7043;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 69, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  background: #ff4500;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* NOVA : adaptation aux téléphones */
+@media (max-width: 600px) {
+  header {
+    padding: 15px 12px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  section {
+    padding: 35px 16px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 8vw, 42px);
+  }
+
+  .nova-footer {
+    padding: 32px 14px;
+  }
+
+  #themeToggle {
+    top: 70px;
+    right: 10px;
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+
+  #backToTop {
+    right: 14px;
+    bottom: 14px;
+    width: 46px;
+    height: 46px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<div id="garden" aria-hidden="true"></div>
+
+<div class="site">
+  <header>
+    <a class="logo" href="#home">NO<span>V</span>A.</a>
+
+    <nav>
+      <a href="#home" data-t="navHome">Accueil</a>
+      <a href="#about" data-t="navAbout">À propos</a>
+      <a href="#inspiration" data-t="navInspiration">Inspiration</a>
+    </nav>
+
+    <select id="language" aria-label="Choisir une langue">
+      <option value="fr">🇫🇷 Français</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="ar">🇸🇦 العربية</option>
+      <option value="pt">🇵🇹 Português</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="wo">🇸🇳 Wolof</option>
+    </select>
+  </header>
+
+  <aside id="quote-note">
+    <p id="topQuote">« Chaque idée est une fleur qui attend de s'ouvrir. »</p>
+    <button id="nextTopQuote" data-t="anotherQuote">Une autre pensée ↗</button>
+  </aside>
+
+  <main>
+    <section class="hero" id="home">
+      <p class="eyebrow" data-t="eyebrow">Un univers qui me ressemble</p>
+      <h1 data-t="heroTitle">Bienvenue dans<br><em>mon univers.</em></h1>
+      <p class="intro" data-t="heroText">
+        Un petit coin de douceur, d'idées et de créativité.
+        Ici, chaque détail raconte une histoire.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="#about" data-t="discover">Découvrir NOVA</a>
+        <button class="btn secondary" id="secretButton" data-t="secretButton">
+          Un petit secret ✿
+        </button>
+      </div>
+
+      <div id="secret" hidden>
+        <span>🌼</span>
+        <p data-t="secretText">
+          Ici, les idées ont le droit de fleurir.
+          Prends ton temps et laisse ton imagination respirer.
+        </p>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="about">
+        <div>
+          <p class="section-label" data-t="aboutLabel">Quelques mots sur moi</p>
+          <h2 data-t="aboutTitle">Derrière NOVA</h2>
+          <div class="about-text">
+            <p data-t="bio">
+              Je suis une personne curieuse, avec des idées et le plaisir
+              de créer quelque chose à mon image. NOVA est un espace où
+              je peux partager mon univers, apprendre et donner vie à
+              mon imagination.
+            </p>
+            <p data-t="why">
+              J'ai créé NOVA pour avoir un petit espace personnel,
+              accueillant et créatif, où chaque détail compte.
+              Ce site évoluera avec mes idées et mes découvertes.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="symbol" aria-hidden="true">✿</div>
+          <h2 data-t="vision">Ma vision</h2>
+          <p data-t="visionText">
+            Créer, explorer, apprendre et faire pousser de nouvelles idées.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="inspiration" class="quote-section">
+      <p class="section-label" data-t="inspirationLabel">Une pause douceur</p>
+      <h2 data-t="inspirationTitle">Une pensée pour toi</h2>
+      <blockquote id="mainQuote" aria-live="polite">
+        « Avance à ton rythme, les petits pas comptent aussi. »
+      </blockquote>
+      <button class="btn secondary" id="nextMainQuote" data-t="anotherQuote">
+        Une autre pensée ↗
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> NOVA</span>
+    <span data-t="footer">Imaginé avec douceur et créativité ✿</span>
+  </footer>
+</div>
+
+<script>
+const words = {
+  fr: {
+    navHome:"Accueil", navAbout:"À propos", navInspiration:"Inspiration",
+    eyebrow:"Un univers qui me ressemble",
+    heroTitle:"Bienvenue dans<br><em>mon univers.</em>",
+    heroText:"Un petit coin de douceur, d'idées et de créativité. Ici, chaque détail raconte une histoire.",
+    discover:"Découvrir NOVA", secretButton:"Un petit secret ✿",
+    secretText:"Ici, les idées ont le droit de fleurir. Prends ton temps et laisse ton imagination respirer.",
+    aboutLabel:"Quelques mots sur moi", aboutTitle:"Derrière NOVA",
+    bio:"Je suis une personne curieuse, avec des idées et le plaisir de créer quelque chose à mon image. NOVA est un espace où je peux partager mon univers, apprendre et donner vie à mon imagination.",
+    why:"J'ai créé NOVA pour avoir un petit espace personnel, accueillant et créatif, où chaque détail compte. Ce site évoluera avec mes idées et mes découvertes.",
+    vision:"Ma vision", visionText:"Créer, explorer, apprendre et faire pousser de nouvelles idées.",
+    inspirationLabel:"Une pause douceur", inspirationTitle:"Une pensée pour toi",
+    anotherQuote:"Une autre pensée ↗", footer:"Imaginé avec douceur et créativité ✿",
+    quotes:["« Chaque idée est une fleur qui attend de s'ouvrir. »","« Avance à ton rythme, les petits pas comptent aussi. »","« Tu peux toujours recommencer sur une nouvelle page. »","« La beauté se cache parfois dans les détails. »"]
+  },
+  en: {
+    navHome:"Home", navAbout:"About", navInspiration:"Inspiration",
+    eyebrow:"A world that feels like me", heroTitle:"Welcome to<br><em>my world.</em>",
+    heroText:"A little corner of warmth, ideas and creativity. Every detail tells a story.",
+    discover:"Discover NOVA", secretButton:"A little secret ✿",
+    secretText:"Here, ideas are allowed to bloom. Take your time and let your imagination breathe.",
+    aboutLabel:"A few words about me", aboutTitle:"Behind NOVA",
+    bio:"I am a curious person who enjoys creating something that feels like me. NOVA is a space where I can share my world, learn and bring my imagination to life.",
+    why:"I created NOVA as a personal, welcoming and creative space where every detail matters. This site will grow along with my ideas and discoveries.",
+    vision:"My vision", visionText:"Create, explore, learn and let new ideas grow.",
+    inspirationLabel:"A gentle pause", inspirationTitle:"A thought for you",
+    anotherQuote:"Another thought ↗", footer:"Imagined with warmth and creativity ✿",
+    quotes:["“Every idea is a flower waiting to open.”","“Move at your own pace. Small steps count too.”","“You can always begin again on a fresh page.”","“Beauty sometimes hides in the details.”"]
+  },
+  es: {
+    navHome:"Inicio", navAbout:"Sobre mí", navInspiration:"Inspiración",
+    eyebrow:"Un universo que se parece a mí", heroTitle:"Bienvenida a<br><em>mi universo.</em>",
+    heroText:"Un pequeño rincón de calma, ideas y creatividad. Cada detalle cuenta una historia.",
+    discover:"Descubrir NOVA", secretButton:"Un pequeño secreto ✿",
+    secretText:"Aquí las ideas pueden florecer. Tómate tu tiempo y deja respirar tu imaginación.",
+    aboutLabel:"Unas palabras sobre mí", aboutTitle:"Detrás de NOVA",
+    bio:"Soy una persona curiosa a la que le gusta crear algo que la represente. NOVA es un espacio para compartir mi mundo, aprender y dar vida a mi imaginación.",
+    why:"Creé NOVA como un espacio personal, acogedor y creativo donde cada detalle importa. El sitio crecerá con mis ideas y descubrimientos.",
+    vision:"Mi visión", visionText:"Crear, explorar, aprender y dejar crecer nuevas ideas.",
+    inspirationLabel:"Una pausa tranquila", inspirationTitle:"Un pensamiento para ti",
+    anotherQuote:"Otro pensamiento ↗", footer:"Imaginado con calma y creatividad ✿",
+    quotes:["« Cada idea es una flor que espera abrirse. »","« Avanza a tu ritmo, los pequeños pasos también cuentan. »","« Siempre puedes empezar de nuevo. »","« La belleza a veces está en los detalles. »"]
+  },
+  ar: {
+    navHome:"الرئيسية", navAbout:"من أنا", navInspiration:"إلهام",
+    eyebrow:"عالم يشبهني", heroTitle:"أهلًا بك في<br><em>عالمي.</em>",
+    heroText:"ركن صغير من الهدوء والأفكار والإبداع. لكل تفصيل حكاية.",
+    discover:"اكتشفي NOVA", secretButton:"سر صغير ✿",
+    secretText:"هنا يمكن للأفكار أن تتفتح. خذي وقتك ودعي خيالك يتنفس.",
+    aboutLabel:"كلمات قليلة عني", aboutTitle:"خلف NOVA",
+    bio:"أنا شخص فضولي أحب ابتكار شيء يشبهني. NOVA مساحة أشارك فيها عالمي وأتعلم وأمنح خيالي فرصة للحياة.",
+    why:"أنشأت NOVA لتكون مساحة شخصية ودافئة ومبدعة، حيث لكل تفصيل أهميته. سيتطور الموقع مع أفكاري واكتشافاتي.",
+    vision:"رؤيتي", visionText:"أن أبدع وأكتشف وأتعلم وأترك الأفكار الجديدة تنمو.",
+    inspirationLabel:"استراحة لطيفة", inspirationTitle:"فكرة لك",
+    anotherQuote:"فكرة أخرى ↗", footer:"صُمّم بحب للإبداع والهدوء ✿",
+    quotes:["« كل فكرة زهرة تنتظر أن تتفتح. »","« تقدّمي وفق وتيرتك، فالخطوات الصغيرة مهمة أيضًا. »","« يمكنك دائمًا البدء من جديد. »","« يكمن الجمال أحيانًا في التفاصيل. »"]
+  },
+  pt: {
+    navHome:"Início", navAbout:"Sobre", navInspiration:"Inspiração",
+    eyebrow:"Um universo que combina comigo", heroTitle:"Bem-vinda ao<br><em>meu universo.</em>",
+    heroText:"Um cantinho de calma, ideias e criatividade. Cada detalhe conta uma história.",
+    discover:"Descobrir NOVA", secretButton:"Um pequeno segredo ✿",
+    secretText:"Aqui, as ideias podem florescer. Vai com calma e deixa a imaginação respirar.",
+    aboutLabel:"Algumas palavras sobre mim", aboutTitle:"Por trás da NOVA",
+    bio:"Sou uma pessoa curiosa que gosta de criar algo que tenha a minha identidade. NOVA é um espaço para partilhar o meu mundo, aprender e dar vida à imaginação.",
+    why:"Criei NOVA como um espaço pessoal, acolhedor e criativo. Este site vai crescer com as minhas ideias e descobertas.",
+    vision:"A minha visão", visionText:"Criar, explorar, aprender e deixar novas ideias crescerem.",
+    inspirationLabel:"Uma pausa tranquila", inspirationTitle:"Um pensamento para ti",
+    anotherQuote:"Outro pensamento ↗", footer:"Criado com carinho e criatividade ✿",
+    quotes:["« Cada ideia é uma flor à espera de abrir. »","« Avança ao teu ritmo. Os pequenos passos também contam. »","« Podes sempre começar de novo. »","« A beleza está, por vezes, nos detalhes. »"]
+  },
+  de: {
+    navHome:"Start", navAbout:"Über mich", navInspiration:"Inspiration",
+    eyebrow:"Eine Welt, die zu mir passt", heroTitle:"Willkommen in<br><em>meiner Welt.</em>",
+    heroText:"Ein kleiner Ort voller Ruhe, Ideen und Kreativität. Jedes Detail erzählt eine Geschichte.",
+    discover:"NOVA entdecken", secretButton:"Ein kleines Geheimnis ✿",
+    secretText:"Hier dürfen Ideen aufblühen. Lass dir Zeit und gib deiner Fantasie Raum.",
+    aboutLabel:"Ein paar Worte über mich", aboutTitle:"Hinter NOVA",
+    bio:"Ich bin neugierig und erschaffe gern etwas, das zu mir passt. NOVA ist ein Ort, an dem ich meine Welt teilen, lernen und meine Fantasie lebendig machen kann.",
+    why:"Ich habe NOVA als persönlichen, einladenden und kreativen Ort geschaffen. Die Website wächst mit meinen Ideen und Entdeckungen.",
+    vision:"Meine Vision", visionText:"Kreieren, entdecken, lernen und neue Ideen wachsen lassen.",
+    inspirationLabel:"Eine kleine Pause", inspirationTitle:"Ein Gedanke für dich",
+    anotherQuote:"Ein weiterer Gedanke ↗", footer:"Mit Ruhe und Kreativität gestaltet ✿",
+    quotes:["„Jede Idee ist eine Blume, die auf das Erblühen wartet.“","„Geh in deinem Tempo. Auch kleine Schritte zählen.“","„Du kannst jederzeit neu anfangen.“","„Schönheit steckt manchmal in den Details.“"]
+  },
+  it: {
+    navHome:"Home", navAbout:"Chi sono", navInspiration:"Ispirazione",
+    eyebrow:"Un mondo che mi somiglia", heroTitle:"Benvenuta nel<br><em>mio mondo.</em>",
+    heroText:"Un piccolo angolo di calma, idee e creatività. Ogni dettaglio racconta una storia.",
+    discover:"Scopri NOVA", secretButton:"Un piccolo segreto ✿",
+    secretText:"Qui le idee possono sbocciare. Prenditi il tuo tempo e lascia respirare la fantasia.",
+    aboutLabel:"Qualche parola su di me", aboutTitle:"Dietro NOVA",
+    bio:"Sono una persona curiosa a cui piace creare qualcosa che la rappresenti. NOVA è uno spazio dove condividere il mio mondo, imparare e dare vita alla fantasia.",
+    why:"Ho creato NOVA come uno spazio personale, accogliente e creativo. Il sito crescerà insieme alle mie idee e scoperte.",
+    vision:"La mia visione", visionText:"Creare, esplorare, imparare e far crescere nuove idee.",
+    inspirationLabel:"Una pausa gentile", inspirationTitle:"Un pensiero per te",
+    anotherQuote:"Un altro pensiero ↗", footer:"Immaginato con dolcezza e creatività ✿",
+    quotes:["« Ogni idea è un fiore che aspetta di sbocciare. »","« Vai al tuo ritmo. Anche i piccoli passi contano. »","« Puoi sempre ricominciare. »","« La bellezza a volte si nasconde nei dettagli. »"]
+  },
+  zh: {
+    navHome:"首页", navAbout:"关于我", navInspiration:"灵感",
+    eyebrow:"一个属于我的世界", heroTitle:"欢迎来到<br><em>我的世界。</em>",
+    heroText:"一个充满温柔、想法与创造力的小角落。每个细节都有自己的故事。",
+    discover:"探索 NOVA", secretButton:"一个小秘密 ✿",
+    secretText:"在这里，每个想法都可以开花。慢慢来，让想象自由呼吸。",
+    aboutLabel:"关于我的几句话", aboutTitle:"NOVA 的背后",
+    bio:"我是一个充满好奇心的人，喜欢创造属于自己的东西。NOVA 是我分享世界、学习和实现想象的空间。",
+    why:"我创建 NOVA，是为了拥有一个温暖、私密又有创造力的空间。这个网站会随着我的想法和发现不断成长。",
+    vision:"我的愿景", visionText:"创造、探索、学习，让新的想法生长。",
+    inspirationLabel:"温柔的片刻", inspirationTitle:"送给你的一句话",
+    anotherQuote:"换一句 ↗", footer:"用温柔与创造力设计 ✿",
+    quotes:["“每个想法都是一朵等待绽放的花。”","“按照自己的节奏前进，小小的步伐也很重要。”","“你随时可以重新开始。”","“美有时藏在细节里。”"]
+  },
+  ja: {
+    navHome:"ホーム", navAbout:"私について", navInspiration:"インスピレーション",
+    eyebrow:"私らしい世界", heroTitle:"私の世界へ<br><em>ようこそ。</em>",
+    heroText:"優しさとアイデア、創造力が集まる小さな場所。すべての細部に物語があります。",
+    discover:"NOVAを知る", secretButton:"小さな秘密 ✿",
+    secretText:"ここではアイデアが花開きます。ゆっくりと、自分の想像力を自由にしてみてください。",
+    aboutLabel:"私について少し", aboutTitle:"NOVAの向こう側",
+    bio:"私は好奇心旺盛で、自分らしいものを作ることが好きです。NOVAは自分の世界を共有し、学び、想像力を形にする場所です。",
+    why:"NOVAは、自分らしくいられる温かく創造的な場所として作りました。アイデアや発見とともに成長していきます。",
+    vision:"私のビジョン", visionText:"創造し、探求し、学び、新しいアイデアを育てること。",
+    inspirationLabel:"優しいひと休み", inspirationTitle:"あなたへのひとこと",
+    anotherQuote:"別の言葉 ↗", footer:"優しさと創造力を込めて ✿",
+    quotes:["「すべてのアイデアは、咲くのを待つ花です。」","「自分のペースで進もう。小さな一歩も大切です。」","「いつでも新しく始められます。」","「美しさは細部に隠れていることがあります。」"]
+  },
+  ko: {
+    navHome:"홈", navAbout:"소개", navInspiration:"영감",
+    eyebrow:"나를 닮은 세상", heroTitle:"나의 세계에<br><em>온 걸 환영해.</em>",
+    heroText:"따뜻함과 아이디어, 창의력이 모이는 작은 공간. 모든 디테일에는 이야기가 있어요.",
+    discover:"NOVA 알아보기", secretButton:"작은 비밀 ✿",
+    secretText:"이곳에서는 아이디어가 꽃을 피울 수 있어요. 천천히 둘러보고 상상력을 자유롭게 펼쳐 보세요.",
+    aboutLabel:"나에 대한 몇 마디", aboutTitle:"NOVA의 이야기",
+    bio:"저는 호기심이 많고 나다운 무언가를 만드는 것을 좋아해요. NOVA는 제 세계를 나누고 배우며 상상력을 현실로 만드는 공간이에요.",
+    why:"NOVA는 편안하고 창의적인 나만의 공간을 만들기 위해 시작했어요. 아이디어와 발견을 따라 계속 성장할 거예요.",
+    vision:"나의 비전", visionText:"만들고, 탐험하고, 배우며 새로운 아이디어를 키우기.",
+    inspirationLabel:"잠시 쉬어 가기", inspirationTitle:"당신을 위한 한마디",
+    anotherQuote:"다른 문장 보기 ↗", footer:"따뜻함과 창의력을 담아 ✿",
+    quotes:["“모든 아이디어는 피어나기를 기다리는 꽃이에요.”","“자신의 속도로 나아가세요. 작은 걸음도 소중해요.”","“언제든 새롭게 시작할 수 있어요.”","“아름다움은 때때로 작은 디테일에 숨어 있어요.”"]
+  },
+  tr: {
+    navHome:"Ana sayfa", navAbout:"Hakkımda", navInspiration:"İlham",
+    eyebrow:"Bana benzeyen bir dünya", heroTitle:"<em>Dünyama</em><br>hoş geldin.",
+    heroText:"Sıcaklık, fikirler ve yaratıcılıkla dolu küçük bir köşe. Her ayrıntının bir hikâyesi var.",
+    discover:"NOVA'yı keşfet", secretButton:"Küçük bir sır ✿",
+    secretText:"Burada fikirler çiçek açabilir. Acele etme ve hayal gücüne özgürlük ver.",
+    aboutLabel:"Benim hakkımda birkaç söz", aboutTitle:"NOVA'nın ardında",
+    bio:"Meraklı biriyim ve beni yansıtan şeyler yaratmayı seviyorum. NOVA, dünyamı paylaşabileceğim, öğrenebileceğim ve hayal gücümü gerçeğe dönüştürebileceğim bir alan.",
+    why:"NOVA'yı kişisel, sıcak ve yaratıcı bir alan oluşturmak için kurdum. Bu site fikirlerim ve keşiflerimle büyüyecek.",
+    vision:"Vizyonum", visionText:"Yaratmak, keşfetmek, öğrenmek ve yeni fikirlerin büyümesini sağlamak.",
+    inspirationLabel:"Küçük bir mola", inspirationTitle:"Senin için bir düşünce",
+    anotherQuote:"Başka bir düşünce ↗", footer:"Sıcaklık ve yaratıcılıkla tasarlandı ✿",
+    quotes:["“Her fikir açmayı bekleyen bir çiçektir.”","“Kendi hızında ilerle. Küçük adımlar da önemlidir.”","“Her zaman yeniden başlayabilirsin.”","“Güzellik bazen ayrıntılarda saklıdır.”"]
+  },
+  wo: {
+    navHome:"Dalal", navAbout:"Ci man", navInspiration:"Xel yi",
+    eyebrow:"Sama àddina, sama mel",
+    heroTitle:"Dalal ak<br><em>sama àddina.</em>",
+    heroText:"Bérab bu ndaw bu fees ak dal, xel ak sos. Bépp detail am na nettali.",
+    discover:"Xoolal NOVA", secretButton:"Sirr bu ndaw ✿",
+    secretText:"Fii, xel yi man nañu sax. Bul gaaw, te may sa xel mu dox.",
+    aboutLabel:"Ay kàddu ci man", aboutTitle:"Li nekk gannaaw NOVA",
+    bio:"Dama bëgg xam lu bees te dama bëgg sos lu mel ni man. NOVA mooy bérab bu ma man a séddoo sama àddina, jàng, te wone sama xel.",
+    why:"Sos naa NOVA ngir am bérab bu sama bopp, bu dal te bu fees ak sos. Site bii dina yokku ak sama xel yi ak li ma di gis.",
+    vision:"Sama gis-gis", visionText:"Sos, seet, jàng te may xel yu bees mu sax.",
+    inspirationLabel:"Tànk bu dal", inspirationTitle:"Xel mu la ñeel",
+    anotherQuote:"Beneen xel ↗", footer:"Sos nañu ko ak dal ak xel ✿",
+    quotes:["« Bépp xel mooy tóor-tóor bu bëgg a ubbi. »","« Demal ci sa gaawaay. Tuuti jëf it am na solo. »","« Mën nga tàmbaliwaat saa su ne. »","« Joli gi yenn saa ngi nekk ci detail yi. »"]
+  }
+};
+
+const lang = document.getElementById("language");
+const topQuote = document.getElementById("topQuote");
+const mainQuote = document.getElementById("mainQuote");
+let quoteIndex = 0;
+
+function setLanguage(code) {
+  const t = words[code] || words.fr;
+
+  document.documentElement.lang = code;
+  document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
+
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const key = el.dataset.t;
+    if (t[key]) el.innerHTML = t[key];
+  });
+
+  quoteIndex = 0;
+  topQuote.textContent = t.quotes[0];
+  mainQuote.textContent = t.quotes[1 % t.quotes.length];
+  lang.value = code;
+}
+
+lang.addEventListener("change", e => setLanguage(e.target.value));
+
+function nextQuote() {
+  const t = words[lang.value] || words.fr;
+  quoteIndex = (quoteIndex + 1) % t.quotes.length;
+  topQuote.textContent = t.quotes[quoteIndex];
+  mainQuote.textContent = t.quotes[(quoteIndex + 1) % t.quotes.length];
+}
+
+document.getElementById("nextTopQuote").addEventListener("click", nextQuote);
+document.getElementById("nextMainQuote").addEventListener("click", nextQuote);
+
+document.getElementById("secretButton").addEventListener("click", () => {
+  const secret = document.getElementById("secret");
+  secret.hidden = !secret.hidden;
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Créer beaucoup de fleurs et quelques feuilles */
+const garden = document.getElementById("garden");
+const flowers = [];
+const leaves = [];
+const symbols = ["✿", "❀", "✾", "✽", "✿", "❁", "❀", "✻"];
+
+for (let i = 0; i < 32; i++) {
+  const flower = document.createElement("div");
+  flower.className = "flower";
+  flower.innerHTML = "<span>" + symbols[i % symbols.length] + "</span>";
+
+  const size = 18 + ((i * 17) % 43);
+  const x = (i * 37.7 + 4) % 100;
+  const y = (i * 61.3 + 7) % 100;
+
+  flower.style.fontSize = size + "px";
+  flower.style.opacity = String(0.28 + (i % 6) * 0.09);
+  garden.appendChild(flower);
+
+  flowers.push({
+    el: flower,
+    x: x,
+    y: y,
+    depth: 0.035 + (i % 6) * 0.018,
+    phase: i * 1.7
+  });
+}
+
+for (let i = 0; i < 9; i++) {
+  const leaf = document.createElement("div");
+  leaf.className = "leaf";
+  const x = (i * 29.3 + 12) % 100;
+  const y = (i * 43.7 + 5) % 100;
+  leaf.style.width = (48 + i * 4) + "px";
+  leaf.style.transform = "rotate(" + (i * 37) + "deg)";
+  garden.appendChild(leaf);
+
+  leaves.push({
+    el: leaf,
+    x: x,
+    y: y,
+    depth: 0.025 + (i % 4) * 0.025,
+    phase: i * 2.1
+  });
+}
+
+/* Mouvement fluide des fleurs vers la souris */
+let mouseX = 0;
+let mouseY = 0;
+let pointerActive = false;
+let frame = 0;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+if (!reducedMotion && canHover) {
+  document.addEventListener("pointermove", e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    pointerActive = true;
+  }, { passive: true });
+}
+
+function animateGarden(time) {
+  if (!reducedMotion) {
+    [...flowers, ...leaves].forEach((item, i) => {
+      const swayX = Math.sin(time / 1700 + item.phase) * 7;
+      const swayY = Math.cos(time / 2100 + item.phase) * 8;
+      const followX = pointerActive ? mouseX * item.depth * 100 : 0;
+      const followY = pointerActive ? mouseY * item.depth * 100 : 0;
+      const left = item.x / 100 * window.innerWidth;
+      const top = item.y / 100 * window.innerHeight;
+
+      item.el.style.transform =
+        "translate3d(" +
+        (left + swayX + followX) + "px," +
+        (top + swayY + followY) + "px,0)";
+
+      item.el.style.marginLeft = "0";
+      item.el.style.marginTop = "0";
+    });
+  }
+
+  frame = requestAnimationFrame(animateGarden);
+}
+
+if (!reducedMotion) {
+  frame = requestAnimationFrame(animateGarden);
+}
+
+setLanguage("fr");
+</script>
+
+<footer class="nova-footer">
+  <h2>NOVA</h2>
+  <p>Fais fleurir la beauté qui est en toi.</p>
+  <p>© 2026 NOVA. Tous droits réservés.</p>
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    ↑ Retour en haut
+  </button>
+</footer>
+
+
+<button id="backToTop" aria-label="Retour en haut"
+  onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  ↑
+</button>
+
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.add("visible");
+    } else {
+      backToTop.classList.remove("visible");
+    }
+  });
+</script>
+
+</button>
+
+<button id="themeToggle" aria-label="Activer le mode nuit">
+  🌙 Mode nuit
+</button>
+
+<script>
+   const themeToggle = document.getElementById("themeToggle");
+
+  if (localStorage.getItem("novaTheme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️ Mode jour";
+    themeToggle.setAttribute("aria-label", "Activer le mode jour");
+  }
+
+  themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+
+    const isDark = document.body.classList.contains("dark-mode");
+
+    localStorage.setItem("novaTheme", isDark ? "dark" : "light");
+
+    themeToggle.textContent = isDark ? "☀️ Mode jour" : "🌙 Mode nuit";
+    themeToggle.setAttribute(
+      "aria-label",
+      isDark ? "Activer le mode jour" : "Activer le mode nuit"
+    );
+  });
+</script>
+
+</body>
+</html>
+
