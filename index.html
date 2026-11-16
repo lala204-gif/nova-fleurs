@@ -1,1043 +1,269 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<link rel="icon" type="image/png" href="/nova-fleurs/nova-favicon.png?v=2">
-<meta name="google-site-verification" content="qW4cmdvAPV36rTOegQ-iOhfOQoAKKTF0B-odtE7y-BM" />
-<meta charset="UTF-8"> 
-  <meta name="description" content="Bienvenue dans NOVA, un univers floral aux couleurs douces, rempli de fleurs, d’inspiration et de beauté. Découvrez un espace élégant et créatif.">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVA | Univers floral, fleurs et inspiration</title>
- <link rel="icon" type="image/png" href="nova-favicon.png">
+<meta name="description" content="NOVA, un univers floral pour découvrir les fleurs, leurs histoires, leurs significations et les merveilles rares de la nature.">
+<title>NOVA | Univers floral</title>
+<link rel="icon" type="image/png" href="nova-favicon.png">
 <style>
-:root {
-  --beige: #f5eadc;
-  --cream: #fffaf1;
-  --brown: #8b6b50;
-  --muted: #5b4636;
-  --orange: #d97836;
-  --black: #000000;
-}
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  transition: background-color 0.5s ease, color 0.5s ease;
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  color: var(--black);
-  background:
-    radial-gradient(ellipse at 10% 10%, #fffaf1, transparent 42%),
-    radial-gradient(ellipse at 90% 70%, #efd5b7, transparent 38%),
-    var(--beige);
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-button, select { font: inherit; }
-
-button:focus-visible, a:focus-visible, select:focus-visible {
-  outline: 2px solid var(--orange);
-  outline-offset: 4px;
-}
-
-/* Fleurs et feuilles */
-#garden {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.flower, .leaf {
-  position: absolute;
-  left: 0;
-  top: 0;
-  will-change: transform;
-  user-select: none;
-}
-
-.flower {
-  color: var(--orange);
-  line-height: 1;
-  filter: drop-shadow(0 5px 9px #b66a3320);
-  opacity: .76;
-}
-
-.flower span {
-  display: block;
-  animation: spin 30s linear infinite;
-}
-
-.flower:nth-child(3n) span {
-  animation-direction: reverse;
-  animation-duration: 42s;
-}
-
-.leaf {
-  width: 76px;
-  height: 35px;
-  border: 1px solid #82966c55;
-  border-radius: 100% 0 100% 0;
-  background: linear-gradient(135deg, #9cad842e, #dce5ca20);
-  backdrop-filter: blur(2px);
-}
-
-.leaf::after {
-  content: "";
-  position: absolute;
-  left: 8%;
-  top: 50%;
-  width: 84%;
-  height: 1px;
-  background: #71875d65;
-  transform: rotate(-17deg);
-}
-
-/* Contenu */
-.site {
-  position: relative;
-  z-index: 1;
-}
-
-header {
-  width: min(1160px, 90%);
-  margin: auto;
-  padding: 25px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  border-bottom: 1px solid #795e4528;
-}
-
-.logo {
-  color: var(--brown);
-  text-decoration: none;
-  font: 800 27px Arial, sans-serif;
-  letter-spacing: 5px;
-}
-
-.logo span { color: var(--orange); }
-
-nav {
-  display: flex;
-  gap: 23px;
-  font: 13px Arial, sans-serif;
-}
-
-nav a {
-  color: var(--brown);
-  text-decoration: none;
-}
-
-nav a:hover { color: var(--orange); }
-
-#language {
-  max-width: 155px;
-  padding: 10px;
-  border: 1px solid #795e4533;
-  border-radius: 30px;
-  color: var(--brown);
-  background: #fffaf1cc;
-  cursor: pointer;
-}
-
-/* Citation en haut à droite */
-#quote-note {
-  position: absolute;
-  top: 112px;
-  right: 6%;
-  width: min(265px, 35%);
-  padding: 15px 17px;
-  border-right: 2px solid #e7e7e777;
-  color: #000000;
-  text-align: right;
-  font: italic 17px/1.6 "Brush Script MT", "Segoe Script",
-        "URW Chancery L", cursive;
-  transform: rotate(3deg);
-}
-
-#quote-note p { margin: 0 0 7px; }
-
-#quote-note button {
-  border: 0;
-  background: transparent;
-  color: var(--orange);
-  font: 11px Arial, sans-serif;
-  cursor: pointer;
-  padding: 4px;
-}
-
-main {
-  width: min(1060px, 88%);
-  margin: auto;
-}
-
-.hero {
-  min-height: 76vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 130px 0 70px;
-  text-align: center;
-}
-
-.eyebrow, .section-label {
-  color: var(--orange);
-  font: 11px Arial, sans-serif;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-h1 {
-  margin: 20px 0;
-  font-size: clamp(53px, 9vw, 105px);
-  line-height: 1.05;
-  font-weight: 400;
-  letter-spacing: -4px;
-  animation: appear 1s both;
-}
-
-h1 em {
-  color: var(--orange);
-  font-weight: 400;
-}
-
-.intro {
-  max-width: 530px;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.9;
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 13px;
-  margin-top: 20px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 14px 22px;
-  border: 1px solid var(--brown);
-  border-radius: 35px;
-  background: var(--brown);
-  color: var(--cream);
-  text-decoration: none;
-  font: 12px Arial, sans-serif;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  background: #654a3a;
-}
-
-.btn.secondary {
-  background: transparent;
-  color: var(--black);
-  border-color: #000000;
-}
-
-#secret {
-  max-width: 500px;
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #00000030;
-  border-radius: 20px;
-  background: #fffaf1cc;
-  line-height: 1.8;
-}
-
-[hidden] { display: none !important; }
-
-section {
-  padding: 75px 0;
-  scroll-margin-top: 25px;
-}
-
-h2 {
-  margin: 15px 0 22px;
-  font-size: clamp(35px, 5vw, 55px);
-  font-weight: 400;
-}
-
-.about {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 45px;
-}
-
-.about-text {
-  color: var(--muted);
-  line-height: 1.95;
-}
-
-.about-card {
-  padding: 38px 28px;
-  border: 1px solid #eeeeee2c;
-  border-radius: 180px 180px 25px 25px;
-  background: #fffaf18c;
-  text-align: center;
-}
-
-.about-card .symbol {
-  color: var(--orange);
-  font-size: 75px;
-  animation: spin 35s linear infinite;
-}
-
-.about-card p {
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-.quote-section {
-  text-align: center;
-}
-
-.quote-section blockquote {
-  margin: 25px auto;
-  max-width: 700px;
-  font-size: clamp(24px, 4vw, 38px);
-  font-style: italic;
-  line-height: 1.5;
-}
-
-footer {
-  width: 90%;
-  margin: 20px auto 0;
-  padding: 25px 0;
-  border-top: 1px solid #795e4528;
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  color: var(--muted);
-  font: 11px Arial, sans-serif;
-}
-
-[dir="rtl"] {
-  font-family: Tahoma, Arial, sans-serif;
-}
-
-[dir="rtl"] #quote-note {
-  right: auto;
-  left: 6%;
-  text-align: left;
-  border-right: 0;
-  border-left: 2px solid #00000077;
-}
-
-@keyframes spin {
-  to { rotate: 360deg; }
-}
-
-@keyframes appear {
-  from { opacity: 0; translate: 0 20px; }
-  to { opacity: 1; translate: 0 0; }
-}
-
-@media (max-width: 700px) {
-  header { flex-wrap: wrap; }
-  nav {
-    order: 3;
-    width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  #quote-note {
-    top: 145px;
-    width: 43%;
-    font-size: 14px;
-  }
-  .hero { padding-top: 150px; }
-  h1 { letter-spacing: -2px; }
-  .about { grid-template-columns: 1fr; gap: 25px; }
-  .about-card { max-width: 380px; margin: auto; }
-  section { padding: 50px 0; }
-  footer { flex-direction: column; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Bouton élégant pour remonter en haut */
-.nova-footer button {
-  background: linear-gradient(135deg, #ff4500, #e63900);
-  color: #fffaf1;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 30px;
-  padding: 13px 25px;
-  font-size: 15px;
-  font-family: Georgia, serif;
-  letter-spacing: 1px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(139, 107, 80, 0.2);
-  transition: all 0.3s ease;
-}
-
-.nova-footer button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 9px 20px rgba(139, 107, 80, 0.3);
-  background: #cc3700;
-}
-
-/* Pied de page NOVA */
-.nova-footer {
-  margin-top: 70px;
-  padding: 45px 20px;
-  text-align: center;
-  background: linear-gradient(180deg, #fffaf1, #f5eadc);
-  border-top: 1px solid #e8c7ad;
-  color: #5b4636;
-}
-
-.nova-footer h2 {
-  font-family: Georgia, serif;
-  font-size: 34px;
-  letter-spacing: 8px;
-  color: #ff4500;
-  margin-bottom: 12px;
-}
-
-.nova-footer p:first-of-type {
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 16px;
-  margin-bottom: 18px;
-}
-
-.nova-footer p:last-of-type {
-  font-size: 12px;
-  opacity: 0.75;
-  margin-top: 22px;
-}
-
-.nova-footer h2::after {
-  content: " ✿ ❀ ✿";
-  display: block;
-  font-size: 15px;
-  letter-spacing: 5px;
-  margin-top: 12px;
-  color: #e63900;
-}
-
-#backToTop {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 52px;
-  height: 52px;
-  border: none;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ff4500, #e63900);
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
-  box-shadow: 0 5px 18px rgba(230, 57, 0, 0.3);
-  z-index: 9999;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-#backToTop:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 9px 22px rgba(230, 57, 0, 0.4);
-}
-#backToTop.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* NOVA : mode nuit chic */
-body.dark-mode {
-  --beige: #151515;
-  --cream: #222222;
-  --brown: #ff5a1f;
-  --muted: #f0e6df;
-  --orange: #ff4500;
-  --black: #ffffff;
-
-  background: #151515 !important;
-  color: #f5e9e2;
-}
-
-body.dark-mode header,
-body.dark-mode nav,
-body.dark-mode section,
-body.dark-mode .nova-footer {
-  background-color: #1c1c1c;
-  color: #f5e9e2;
-}
-
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3 {
-  color: #ff5a1f;
-}
-
-body.dark-mode a {
-  color: #ff7043;
-}
-
-body.dark-mode .nova-footer {
-  border-top: 1px solid #ff4500;
-}
-
-body.dark-mode #backToTop {
-  background: linear-gradient(135deg, #ff4500, #c62800);
-}
-
-#themeToggle {
-  position: fixed;
-  top: 75px;
-right: 20px;
-  z-index: 10000;
-  padding: 11px 18px;
-  border: 1px solid #ff4500;
-  border-radius: 30px;
-  background: #151515;
-  color: #ff7043;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 69, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-#themeToggle:hover {
-  background: #ff4500;
-  color: white;
-  transform: translateY(-2px);
-}
-
-/* NOVA : adaptation aux téléphones */
-@media (max-width: 600px) {
-  header {
-    padding: 15px 12px;
-  }
-
-  nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  section {
-    padding: 35px 16px;
-  }
-
-  h1 {
-    font-size: clamp(30px, 8vw, 42px);
-  }
-
-  .nova-footer {
-    padding: 32px 14px;
-  }
-
-  #themeToggle {
-    top: 70px;
-    right: 10px;
-    font-size: 12px;
-    padding: 9px 12px;
-  }
-
-  #backToTop {
-    right: 14px;
-    bottom: 14px;
-    width: 46px;
-    height: 46px;
-  }
-}
-
+:root{--beige:#f5eadc;--cream:#fffaf1;--brown:#76563e;--muted:#665344;--orange:#c97543;--line:#d9c5ae;--card:#fffaf1d9;--shadow:0 14px 40px #77553812}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 10% 10%,#fffaf1,transparent 42%),radial-gradient(ellipse at 90% 70%,#efd5b7,transparent 38%),var(--beige);color:#33271f;font-family:Georgia,"Times New Roman",serif;transition:.35s}
+button,input,select{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+#garden{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}.flower,.leaf{position:absolute;left:0;top:0;will-change:transform;user-select:none}.flower{color:#cf8759;opacity:.45;filter:drop-shadow(0 5px 9px #b66a3320)}.flower span{display:block;animation:spin 34s linear infinite}.leaf{width:70px;height:32px;border:1px solid #82966c55;border-radius:100% 0 100% 0;background:linear-gradient(135deg,#9cad842e,#dce5ca20)}
+.site{position:relative;z-index:1}header{width:min(1200px,92%);margin:auto;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid #795e4528}.logo{text-decoration:none;color:var(--brown);font:800 27px Arial,sans-serif;letter-spacing:5px}.logo span{color:var(--orange)}nav{display:flex;flex-wrap:wrap;gap:18px;font:13px Arial,sans-serif}nav a{text-decoration:none;color:var(--brown)}nav a:hover{color:var(--orange)}#language{max-width:150px;padding:9px 12px;border:1px solid var(--line);border-radius:30px;background:var(--cream);color:var(--brown)}
+main{width:min(1120px,90%);margin:auto}.hero{min-height:76vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:110px 0 75px;position:relative}.eyebrow,.section-label{color:var(--orange);font:11px Arial,sans-serif;letter-spacing:3px;text-transform:uppercase}.hero h1{font-size:clamp(52px,9vw,100px);font-weight:400;line-height:1.03;letter-spacing:-4px;margin:18px 0}.hero h1 em{color:var(--orange)}.intro{max-width:650px;color:var(--muted);font-size:17px;line-height:1.9}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:18px}.btn{display:inline-block;border:1px solid var(--brown);border-radius:30px;padding:13px 21px;background:var(--brown);color:#fffaf1;text-decoration:none;font:12px Arial,sans-serif;cursor:pointer;transition:.25s}.btn:hover{transform:translateY(-3px);background:#654a3a}.btn.secondary{background:transparent;color:var(--brown)}.btn.small{padding:9px 14px}.quote-note{position:absolute;right:1%;top:45px;width:min(270px,35%);text-align:right;color:#594534;font:italic 16px/1.6 "Brush Script MT","Segoe Script",cursive;transform:rotate(2deg)}.quote-note button{border:0;background:transparent;color:var(--orange);cursor:pointer;font:11px Arial}
+section{padding:72px 0;scroll-margin-top:24px}h2{font-size:clamp(34px,5vw,53px);font-weight:400;margin:12px 0 20px;color:var(--brown)}h3{color:var(--brown)}.section-intro{max-width:760px;color:var(--muted);line-height:1.9}.about-grid,.feature-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}.about-card{border:1px solid var(--line);border-radius:180px 180px 24px 24px;background:var(--card);padding:35px;text-align:center;box-shadow:var(--shadow)}.about-card .symbol{font-size:72px;color:var(--orange);animation:spin 40s linear infinite}.about-card p,.about-text{line-height:1.9;color:var(--muted)}.quote-section{text-align:center}.quote-section blockquote{max-width:780px;margin:25px auto;font-size:clamp(24px,4vw,38px);font-style:italic;line-height:1.5;color:var(--brown)}
+.panel{background:var(--card);border:1px solid #d9c5ae99;border-radius:24px;padding:25px;box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.flower-card{overflow:hidden;border:1px solid #d9c5ae99;border-radius:20px;background:var(--card);box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.flower-card:hover{transform:translateY(-5px);box-shadow:0 18px 42px #77553820}.flower-art{height:165px;display:grid;place-items:center;background:linear-gradient(135deg,#f4dfca,#fff8ed 55%,#e8d5bd);font-size:76px;position:relative}.flower-art img{width:100%;height:100%;object-fit:cover}.flower-info{padding:17px;display:flex;flex-direction:column;gap:8px;flex:1}.flower-info h3{margin:0;font-size:21px}.latin{font:italic 12px Arial;color:#92765e}.flower-info p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}.tags{display:flex;flex-wrap:wrap;gap:6px}.tag{font:10px Arial;background:#ead8c5;color:#73563e;border-radius:20px;padding:5px 8px}.card-actions{display:flex;gap:8px;margin-top:auto;padding-top:10px}.icon-btn{border:1px solid var(--line);border-radius:22px;background:#fffaf1;color:var(--brown);padding:8px 11px;cursor:pointer;font:12px Arial}.icon-btn.active{background:#f4ded0;color:#a34e35;border-color:#d99b7c}
+.controls{display:grid;grid-template-columns:1fr 210px;gap:12px;margin:24px 0}.controls input,.controls select{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:25px;background:#fffaf1;color:#49392c}.result-count{font:12px Arial;color:#8a7058;margin:0 0 14px}.empty{padding:30px;text-align:center;color:var(--muted);background:var(--card);border-radius:18px}
+.daily{display:grid;grid-template-columns: .85fr 1.15fr;gap:25px;align-items:center}.daily-art{min-height:270px;border-radius:24px;background:linear-gradient(135deg,#ead2bb,#fff8ec);display:grid;place-items:center;font-size:115px}.daily-copy{line-height:1.8;color:var(--muted)}.tip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.tip{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--card)}.tip .emoji{font-size:30px}.tip p{color:var(--muted);font-size:14px;line-height:1.7}
+footer{margin-top:60px;padding:42px 20px;text-align:center;border-top:1px solid var(--line);background:#fffaf18c;color:var(--muted)}footer h2{font-size:32px;letter-spacing:8px;color:var(--orange)}footer p{font-style:italic}.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font:12px Arial}.footer-links a{text-decoration:none}
+#backToTop,#themeToggle{position:fixed;z-index:20;border:1px solid #d9a17c;border-radius:30px;background:#fffaf1;color:#9d5735;box-shadow:0 5px 18px #8d583022;cursor:pointer}#backToTop{right:20px;bottom:20px;width:48px;height:48px;font-size:24px;opacity:0;visibility:hidden;transform:translateY(8px);transition:.25s}#backToTop.visible{opacity:1;visibility:visible;transform:none}#themeToggle{right:20px;top:18px;padding:9px 13px;font:12px Arial}
+dialog{width:min(850px,96vw);max-width:none;max-height:94vh;overflow:auto;border:0;border-radius:28px;padding:12px;background:linear-gradient(145deg,#fffaf2,#f0dfcc);color:#33271f;box-shadow:0 25px 90px #0005}dialog::backdrop{background:#30251c88;backdrop-filter:blur(7px)}.dialog-inner{position:relative;min-height:590px;padding:18px 20px 26px}.dialog-close{position:absolute;z-index:5;right:16px;top:10px;width:38px;height:38px;border:1px solid #d9b99c;border-radius:50%;background:#fffaf1;font-size:25px;cursor:pointer;color:#76563e;box-shadow:0 4px 12px #77553820}.bloom-sheet{position:relative;width:min(760px,100%);height:550px;margin:8px auto 0}.bloom-petal{position:absolute;width:37%;height:39%;padding:22px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid #d7b89c;background:linear-gradient(145deg,#fffaf2,#f4dfca);border-radius:50%;box-shadow:0 9px 24px #78583b1c}.bloom-petal h3{font-size:15px;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;color:#a96842}.bloom-petal p{margin:0;color:#665344;font:14px/1.55 Georgia,serif}.petal-top{top:0;left:31.5%;height:36%}.petal-left{top:23%;left:1%;}.petal-right{top:23%;right:1%}.petal-bottom-left{bottom:0;left:13%;}.petal-bottom-right{bottom:0;right:13%}.bloom-center{position:absolute;z-index:2;left:50%;top:49%;transform:translate(-50%,-50%);width:235px;height:235px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:radial-gradient(circle at 35% 30%,#fff9ed,#e9c6a7 80%);border:7px solid #f8ead9;box-shadow:0 0 0 1px #c9956d,0 12px 30px #78583b2b}.bloom-emoji{font-size:48px;line-height:1.2}.bloom-center h2{font-size:24px;line-height:1.15;margin:8px 0;color:#76503a}.bloom-center .latin{font-size:12px}.dialog-kicker{text-align:center;color:#a96842;font:11px Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;margin:6px 0 0}.bloom-note{font:11px/1.5 Arial,sans-serif;color:#8a7058;text-align:center;margin:4px 0 0}.body.dark-mode dialog{background:linear-gradient(145deg,#302720,#211b17);color:#f4e9df}.dark-mode .bloom-petal{background:linear-gradient(145deg,#493629,#302720);border-color:#76563e}.dark-mode .bloom-petal p{color:#e8d8ca}.dark-mode .bloom-center{background:radial-gradient(circle at 35% 30%,#604b3a,#302720 80%);border-color:#493629}.dark-mode .bloom-center h2,.dark-mode .bloom-petal h3{color:#f0bd98}.dark-mode .bloom-center .latin{color:#e8cbb4}.dark-mode .dialog-close{background:#302720;color:#f4e9df;border-color:#76563e}
+@media(max-width:620px){dialog{padding:8px}.dialog-inner{padding:16px 8px 22px;min-height:0}.bloom-sheet{height:auto;display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:42px}.bloom-center{position:relative;left:auto;top:auto;transform:none;order:0;width:190px;height:190px;flex-shrink:0}.bloom-petal{position:relative;inset:auto;width:min(92%,360px);height:auto;min-height:105px;border-radius:55px;padding:17px 24px}.petal-top{order:1}.petal-left{order:2}.petal-right{order:3}.petal-bottom-left{order:4}.petal-bottom-right{order:5}.bloom-note{padding:0 12px}}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:800px){header{flex-wrap:wrap}nav{order:3;width:100%;justify-content:center}#themeToggle{top:14px;right:12px}.quote-note{top:35px;right:0;width:45%;font-size:13px}.hero{padding-top:155px}.about-grid,.feature-grid,.daily{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tip-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){main{width:92%}.hero h1{letter-spacing:-2px}.grid{grid-template-columns:1fr}.tip-grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr}.quote-note{width:48%}section{padding:52px 0}.flower-art{height:190px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
+body.dark-mode{--beige:#191614;--cream:#28211c;--brown:#e6b28d;--muted:#e5d6ca;--line:#594638;--card:#2a231edb;background:#191614;color:#f4e9df}
+body.dark-mode header,body.dark-mode footer{border-color:var(--line)}body.dark-mode .flower-card,body.dark-mode .panel,body.dark-mode .tip,body.dark-mode .about-card{background:#2a231e;color:#f4e9df}body.dark-mode .flower-art,body.dark-mode .daily-art{background:linear-gradient(135deg,#493629,#2a231e)}body.dark-mode .controls input,body.dark-mode .controls select,body.dark-mode .icon-btn,body.dark-mode #language,body.dark-mode #themeToggle,body.dark-mode #backToTop{background:#302720;color:#f4e9df;border-color:#72563f}body.dark-mode .tag{background:#594638;color:#f4e9df}body.dark-mode .quote-note{color:#f0d8c6}
 </style>
 </head>
-
 <body>
 <div id="garden" aria-hidden="true"></div>
-
+<button id="themeToggle" type="button">🌙 Mode nuit</button>
 <div class="site">
-  <header>
-    <a class="logo" href="#home">NO<span>V</span>A.</a>
+<header>
+<a class="logo" href="#home">NO<span>V</span>A.</a>
+<nav aria-label="Navigation principale">
+<a href="#home">Accueil</a><a href="#about">À propos</a><a href="#inspiration">Inspiration</a><a href="#dictionary">Dictionnaire</a><a href="#rare">Fleurs rares</a><a href="#tips">Conseils</a>
+</nav>
+<select id="language" aria-label="Choisir une langue">
+<option value="fr">🇫🇷 Français</option><option value="en">🇬🇧 English</option><option value="es">🇪🇸 Español</option><option value="ar">🇸🇦 العربية</option><option value="pt">🇵🇹 Português</option><option value="de">🇩🇪 Deutsch</option><option value="it">🇮🇹 Italiano</option><option value="zh">🇨🇳 中文</option><option value="ja">🇯🇵 日本語</option><option value="ko">🇰🇷 한국어</option><option value="tr">🇹🇷 Türkçe</option><option value="wo">🇸🇳 Wolof</option>
+</select>
+</header>
+<main>
+<aside class="quote-note"><p id="topQuote">« Chaque fleur prend son temps pour s'ouvrir. »</p><button id="nextTopQuote">Une autre pensée ↗</button></aside>
+<section class="hero" id="home">
+<p class="eyebrow">Un univers floral à explorer</p>
+<h1>Bienvenue dans<br><em>l'univers NOVA.</em></h1>
+<p class="intro">Un endroit pour prendre le temps de regarder, découvrir et s'émerveiller. Des fleurs que l'on connaît déjà à celles que l'on n'aurait jamais imaginé voir, chaque pétale a son histoire.</p>
+<div class="actions"><a class="btn" href="#dictionary">Explorer les fleurs</a><a class="btn secondary" href="#rare">Découvrir les fleurs rares</a></div>
+</section>
 
-    <nav>
-      <a href="#home" data-t="navHome">Accueil</a>
-      <a href="#about" data-t="navAbout">À propos</a>
-      <a href="#inspiration" data-t="navInspiration">Inspiration</a>
-    </nav>
+<section id="about"><div class="about-grid">
+<div><p class="section-label">Quelques mots sur NOVA</p><h2>Un univers qui fleurit avec la curiosité</h2>
+<div class="about-text"><p>NOVA est né d'une envie simple : créer un endroit doux, vivant et rempli de découvertes. Ici, on peut se perdre dans les couleurs d'une fleur, apprendre son histoire ou tomber sur une variété dont on ignorait complètement l'existence.</p>
+<p>Ce site rassemble la beauté des fleurs et le plaisir d'apprendre. Il y a de la place pour les grandes classiques, les petites merveilles tropicales et les espèces si rares qu'elles semblent sorties d'un conte.</p><p>Installe-toi, explore à ton rythme et laisse une fleur attirer ton regard.</p></div></div>
+<div class="about-card"><div class="symbol">✿</div><h2>Notre envie</h2><p>Faire découvrir le monde floral avec de belles images, des informations fiables et une touche de poésie.</p></div>
+</div></section>
 
-    <select id="language" aria-label="Choisir une langue">
-      <option value="fr">🇫🇷 Français</option>
-      <option value="en">🇬🇧 English</option>
-      <option value="es">🇪🇸 Español</option>
-      <option value="ar">🇸🇦 العربية</option>
-      <option value="pt">🇵🇹 Português</option>
-      <option value="de">🇩🇪 Deutsch</option>
-      <option value="it">🇮🇹 Italiano</option>
-      <option value="zh">🇨🇳 中文</option>
-      <option value="ja">🇯🇵 日本語</option>
-      <option value="ko">🇰🇷 한국어</option>
-      <option value="tr">🇹🇷 Türkçe</option>
-      <option value="wo">🇸🇳 Wolof</option>
-    </select>
-  </header>
+<section id="inspiration" class="quote-section"><p class="section-label">Une pause douceur</p><h2>Un peu d'inspiration</h2><blockquote id="mainQuote">« Il y a des beautés qu'on ne remarque que lorsqu'on prend le temps de regarder. »</blockquote><button class="btn secondary" id="nextMainQuote">Une autre pensée ↗</button></section>
 
-  <aside id="quote-note">
-    <p id="topQuote">« Chaque idée est une fleur qui attend de s'ouvrir. »</p>
-    <button id="nextTopQuote" data-t="anotherQuote">Une autre pensée ↗</button>
-  </aside>
+<section id="dictionary"><p class="section-label">Le grand dictionnaire floral</p><h2>Une fleur, mille histoires</h2><p class="section-intro">Retrouve les fleurs par leur nom, leur famille ou leur signification. Chaque fiche présente des repères botaniques et une interprétation symbolique. Les significations peuvent varier selon les pays et les traditions.</p>
+<div class="controls"><input id="searchFlower" type="search" placeholder="Rechercher une fleur, une couleur, une signification…"><select id="categoryFilter"><option value="all">Toutes les catégories</option><option value="Classiques">Classiques</option><option value="Tropicales">Tropicales</option><option value="Rares">Rares</option><option value="Insolites">Insolites</option></select></div>
+<p class="result-count" id="resultCount" aria-live="polite"></p><div class="grid" id="flowerGrid"></div>
+</section>
 
-  <main>
-    <section class="hero" id="home">
-      <p class="eyebrow" data-t="eyebrow">Un univers qui me ressemble</p>
-      <h1 data-t="heroTitle">Bienvenue dans<br><em>mon univers.</em></h1>
-      <p class="intro" data-t="heroText">
-        Un petit coin de douceur, d'idées et de créativité.
-        Ici, chaque détail raconte une histoire.
-      </p>
+<section id="rare"><p class="section-label">Les merveilles peu communes</p><h2>Fleurs rares et extraordinaires</h2><p class="section-intro">Certaines fleurs sont difficiles à observer, vivent dans des milieux très précis ou ne fleurissent que brièvement. Leur rareté dépend parfois de leur habitat menacé, et pas seulement du nombre de plants connus.</p><div class="grid" id="rareGrid"></div></section>
 
-      <div class="actions">
-        <a class="btn" href="#about" data-t="discover">Découvrir NOVA</a>
-        <button class="btn secondary" id="secretButton" data-t="secretButton">
-          Un petit secret ✿
-        </button>
-      </div>
+<section id="daily"><p class="section-label">Une découverte à chaque visite</p><h2>La fleur du jour</h2><div class="panel daily"><div class="daily-art" id="dailyArt">🌺</div><div><h3 id="dailyName">Hibiscus</h3><p class="daily-copy" id="dailyText">Une fleur tropicale généreuse, connue pour ses grandes corolles colorées.</p><button class="btn small" id="dailyDetails">Découvrir sa fiche</button></div></div></section>
 
-      <div id="secret" hidden>
-        <span>🌼</span>
-        <p data-t="secretText">
-          Ici, les idées ont le droit de fleurir.
-          Prends ton temps et laisse ton imagination respirer.
-        </p>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="about">
-        <div>
-          <p class="section-label" data-t="aboutLabel">Quelques mots sur moi</p>
-          <h2 data-t="aboutTitle">Derrière NOVA</h2>
-          <div class="about-text">
-            <p data-t="bio">
-              Je suis une personne curieuse, avec des idées et le plaisir
-              de créer quelque chose à mon image. NOVA est un espace où
-              je peux partager mon univers, apprendre et donner vie à
-              mon imagination.
-            </p>
-            <p data-t="why">
-              J'ai créé NOVA pour avoir un petit espace personnel,
-              accueillant et créatif, où chaque détail compte.
-              Ce site évoluera avec mes idées et mes découvertes.
-            </p>
-          </div>
-        </div>
-
-        <div class="about-card">
-          <div class="symbol" aria-hidden="true">✿</div>
-          <h2 data-t="vision">Ma vision</h2>
-          <p data-t="visionText">
-            Créer, explorer, apprendre et faire pousser de nouvelles idées.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="inspiration" class="quote-section">
-      <p class="section-label" data-t="inspirationLabel">Une pause douceur</p>
-      <h2 data-t="inspirationTitle">Une pensée pour toi</h2>
-      <blockquote id="mainQuote" aria-live="polite">
-        « Avance à ton rythme, les petits pas comptent aussi. »
-      </blockquote>
-      <button class="btn secondary" id="nextMainQuote" data-t="anotherQuote">
-        Une autre pensée ↗
-      </button>
-    </section>
-  </main>
-
-  <footer>
-    <span>© <span id="year"></span> NOVA</span>
-    <span data-t="footer">Imaginé avec douceur et créativité ✿</span>
-  </footer>
+<section id="tips"><p class="section-label">Petits gestes, belles floraisons</p><h2>Conseils et secrets des fleurs</h2><p class="section-intro">Quelques habitudes simples aident les fleurs coupées et les plantes à rester belles plus longtemps. Chaque espèce a ses besoins : observe toujours ses feuilles, son sol et son environnement.</p>
+<div class="tip-grid">
+<article class="tip"><div class="emoji">💧</div><h3>Arroser avec attention</h3><p>Vérifie l'humidité de la terre avant d'arroser. Beaucoup de plantes préfèrent un sol qui sèche légèrement en surface plutôt qu'un terreau constamment détrempé.</p></article>
+<article class="tip"><div class="emoji">☀️</div><h3>Choisir la bonne lumière</h3><p>Une fenêtre lumineuse ne convient pas à toutes les espèces. Certaines aiment le soleil direct, d'autres préfèrent une lumière douce et indirecte.</p></article>
+<article class="tip"><div class="emoji">✂️</div><h3>Entretenir les bouquets</h3><p>Coupe les tiges en biais avec un outil propre, retire les feuilles qui tremperaient dans l'eau et change l'eau régulièrement.</p></article>
+<article class="tip"><div class="emoji">🌱</div><h3>Rempoter au bon moment</h3><p>Quand les racines remplissent le pot ou sortent par les trous de drainage, un contenant légèrement plus grand peut aider la plante.</p></article>
+<article class="tip"><div class="emoji">🐝</div><h3>Accueillir les pollinisateurs</h3><p>Des fleurs variées, locales et riches en nectar peuvent offrir nourriture et abri aux abeilles, papillons et autres insectes.</p></article>
+<article class="tip"><div class="emoji">🍂</div><h3>Observer avant d'agir</h3><p>Des feuilles jaunes, des taches ou des tiges molles peuvent avoir plusieurs causes. Regarde l'arrosage, la lumière et les parasites avant de traiter.</p></article>
 </div>
+</section>
+
+<section id="favorites"><p class="section-label">Ta petite collection</p><h2>Mes fleurs favorites</h2><p class="section-intro">Les fleurs que tu ajoutes avec le cœur apparaîtront ici. Tes favoris sont enregistrés dans ce navigateur.</p><div class="grid" id="favoriteGrid"></div><p id="favoriteEmpty" class="empty">Tu n'as pas encore ajouté de fleur. Explore le dictionnaire et touche le cœur d'une fiche pour la garder ici.</p></section>
+</main>
+<footer><h2>NOVA</h2><p>« Fais fleurir la beauté qui est en toi. »</p><div class="footer-links"><a href="#home">Accueil</a><a href="#dictionary">Dictionnaire</a><a href="#rare">Fleurs rares</a><a href="#favorites">Favoris</a></div><p>© <span id="year"></span> NOVA. Un univers floral à découvrir.</p><button class="btn small" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Retour en haut</button></footer>
+</div>
+<button id="backToTop" aria-label="Retour en haut">↑</button>
+
+<dialog id="flowerDialog"><div class="dialog-inner"><button class="dialog-close" id="closeDialog" aria-label="Fermer">×</button><p class="dialog-kicker">Carnet botanique NOVA</p><div class="bloom-sheet"><article class="bloom-petal petal-top"><h3>Origine</h3><p id="detailOrigin"></p></article><article class="bloom-petal petal-left"><h3>Couleurs</h3><p id="detailColors"></p></article><article class="bloom-petal petal-right"><h3>Signification</h3><p id="detailMeaning"></p></article><article class="bloom-petal petal-bottom-left"><h3>Portrait floral</h3><p id="detailDescription"></p></article><article class="bloom-petal petal-bottom-right"><h3>Le savais-tu ?</h3><p id="detailFact"></p></article><div class="bloom-center"><div class="bloom-emoji" id="dialogEmoji">🌸</div><h2 id="dialogName"></h2><p class="latin" id="dialogLatin"></p></div></div><p class="bloom-note">Les symboliques florales peuvent varier selon les cultures et les régions.</p></div></dialog>
 
 <script>
-const words = {
-  fr: {
-    navHome:"Accueil", navAbout:"À propos", navInspiration:"Inspiration",
-    eyebrow:"Un univers qui me ressemble",
-    heroTitle:"Bienvenue dans<br><em>mon univers.</em>",
-    heroText:"Un petit coin de douceur, d'idées et de créativité. Ici, chaque détail raconte une histoire.",
-    discover:"Découvrir NOVA", secretButton:"Un petit secret ✿",
-    secretText:"Ici, les idées ont le droit de fleurir. Prends ton temps et laisse ton imagination respirer.",
-    aboutLabel:"Quelques mots sur moi", aboutTitle:"Derrière NOVA",
-    bio:"Je suis une personne curieuse, avec des idées et le plaisir de créer quelque chose à mon image. NOVA est un espace où je peux partager mon univers, apprendre et donner vie à mon imagination.",
-    why:"J'ai créé NOVA pour avoir un petit espace personnel, accueillant et créatif, où chaque détail compte. Ce site évoluera avec mes idées et mes découvertes.",
-    vision:"Ma vision", visionText:"Créer, explorer, apprendre et faire pousser de nouvelles idées.",
-    inspirationLabel:"Une pause douceur", inspirationTitle:"Une pensée pour toi",
-    anotherQuote:"Une autre pensée ↗", footer:"Imaginé avec douceur et créativité ✿",
-    quotes:["« Chaque idée est une fleur qui attend de s'ouvrir. »","« Avance à ton rythme, les petits pas comptent aussi. »","« Tu peux toujours recommencer sur une nouvelle page. »","« La beauté se cache parfois dans les détails. »"]
-  },
-  en: {
-    navHome:"Home", navAbout:"About", navInspiration:"Inspiration",
-    eyebrow:"A world that feels like me", heroTitle:"Welcome to<br><em>my world.</em>",
-    heroText:"A little corner of warmth, ideas and creativity. Every detail tells a story.",
-    discover:"Discover NOVA", secretButton:"A little secret ✿",
-    secretText:"Here, ideas are allowed to bloom. Take your time and let your imagination breathe.",
-    aboutLabel:"A few words about me", aboutTitle:"Behind NOVA",
-    bio:"I am a curious person who enjoys creating something that feels like me. NOVA is a space where I can share my world, learn and bring my imagination to life.",
-    why:"I created NOVA as a personal, welcoming and creative space where every detail matters. This site will grow along with my ideas and discoveries.",
-    vision:"My vision", visionText:"Create, explore, learn and let new ideas grow.",
-    inspirationLabel:"A gentle pause", inspirationTitle:"A thought for you",
-    anotherQuote:"Another thought ↗", footer:"Imagined with warmth and creativity ✿",
-    quotes:["“Every idea is a flower waiting to open.”","“Move at your own pace. Small steps count too.”","“You can always begin again on a fresh page.”","“Beauty sometimes hides in the details.”"]
-  },
-  es: {
-    navHome:"Inicio", navAbout:"Sobre mí", navInspiration:"Inspiración",
-    eyebrow:"Un universo que se parece a mí", heroTitle:"Bienvenida a<br><em>mi universo.</em>",
-    heroText:"Un pequeño rincón de calma, ideas y creatividad. Cada detalle cuenta una historia.",
-    discover:"Descubrir NOVA", secretButton:"Un pequeño secreto ✿",
-    secretText:"Aquí las ideas pueden florecer. Tómate tu tiempo y deja respirar tu imaginación.",
-    aboutLabel:"Unas palabras sobre mí", aboutTitle:"Detrás de NOVA",
-    bio:"Soy una persona curiosa a la que le gusta crear algo que la represente. NOVA es un espacio para compartir mi mundo, aprender y dar vida a mi imaginación.",
-    why:"Creé NOVA como un espacio personal, acogedor y creativo donde cada detalle importa. El sitio crecerá con mis ideas y descubrimientos.",
-    vision:"Mi visión", visionText:"Crear, explorar, aprender y dejar crecer nuevas ideas.",
-    inspirationLabel:"Una pausa tranquila", inspirationTitle:"Un pensamiento para ti",
-    anotherQuote:"Otro pensamiento ↗", footer:"Imaginado con calma y creatividad ✿",
-    quotes:["« Cada idea es una flor que espera abrirse. »","« Avanza a tu ritmo, los pequeños pasos también cuentan. »","« Siempre puedes empezar de nuevo. »","« La belleza a veces está en los detalles. »"]
-  },
-  ar: {
-    navHome:"الرئيسية", navAbout:"من أنا", navInspiration:"إلهام",
-    eyebrow:"عالم يشبهني", heroTitle:"أهلًا بك في<br><em>عالمي.</em>",
-    heroText:"ركن صغير من الهدوء والأفكار والإبداع. لكل تفصيل حكاية.",
-    discover:"اكتشفي NOVA", secretButton:"سر صغير ✿",
-    secretText:"هنا يمكن للأفكار أن تتفتح. خذي وقتك ودعي خيالك يتنفس.",
-    aboutLabel:"كلمات قليلة عني", aboutTitle:"خلف NOVA",
-    bio:"أنا شخص فضولي أحب ابتكار شيء يشبهني. NOVA مساحة أشارك فيها عالمي وأتعلم وأمنح خيالي فرصة للحياة.",
-    why:"أنشأت NOVA لتكون مساحة شخصية ودافئة ومبدعة، حيث لكل تفصيل أهميته. سيتطور الموقع مع أفكاري واكتشافاتي.",
-    vision:"رؤيتي", visionText:"أن أبدع وأكتشف وأتعلم وأترك الأفكار الجديدة تنمو.",
-    inspirationLabel:"استراحة لطيفة", inspirationTitle:"فكرة لك",
-    anotherQuote:"فكرة أخرى ↗", footer:"صُمّم بحب للإبداع والهدوء ✿",
-    quotes:["« كل فكرة زهرة تنتظر أن تتفتح. »","« تقدّمي وفق وتيرتك، فالخطوات الصغيرة مهمة أيضًا. »","« يمكنك دائمًا البدء من جديد. »","« يكمن الجمال أحيانًا في التفاصيل. »"]
-  },
-  pt: {
-    navHome:"Início", navAbout:"Sobre", navInspiration:"Inspiração",
-    eyebrow:"Um universo que combina comigo", heroTitle:"Bem-vinda ao<br><em>meu universo.</em>",
-    heroText:"Um cantinho de calma, ideias e criatividade. Cada detalhe conta uma história.",
-    discover:"Descobrir NOVA", secretButton:"Um pequeno segredo ✿",
-    secretText:"Aqui, as ideias podem florescer. Vai com calma e deixa a imaginação respirar.",
-    aboutLabel:"Algumas palavras sobre mim", aboutTitle:"Por trás da NOVA",
-    bio:"Sou uma pessoa curiosa que gosta de criar algo que tenha a minha identidade. NOVA é um espaço para partilhar o meu mundo, aprender e dar vida à imaginação.",
-    why:"Criei NOVA como um espaço pessoal, acolhedor e criativo. Este site vai crescer com as minhas ideias e descobertas.",
-    vision:"A minha visão", visionText:"Criar, explorar, aprender e deixar novas ideias crescerem.",
-    inspirationLabel:"Uma pausa tranquila", inspirationTitle:"Um pensamento para ti",
-    anotherQuote:"Outro pensamento ↗", footer:"Criado com carinho e criatividade ✿",
-    quotes:["« Cada ideia é uma flor à espera de abrir. »","« Avança ao teu ritmo. Os pequenos passos também contam. »","« Podes sempre começar de novo. »","« A beleza está, por vezes, nos detalhes. »"]
-  },
-  de: {
-    navHome:"Start", navAbout:"Über mich", navInspiration:"Inspiration",
-    eyebrow:"Eine Welt, die zu mir passt", heroTitle:"Willkommen in<br><em>meiner Welt.</em>",
-    heroText:"Ein kleiner Ort voller Ruhe, Ideen und Kreativität. Jedes Detail erzählt eine Geschichte.",
-    discover:"NOVA entdecken", secretButton:"Ein kleines Geheimnis ✿",
-    secretText:"Hier dürfen Ideen aufblühen. Lass dir Zeit und gib deiner Fantasie Raum.",
-    aboutLabel:"Ein paar Worte über mich", aboutTitle:"Hinter NOVA",
-    bio:"Ich bin neugierig und erschaffe gern etwas, das zu mir passt. NOVA ist ein Ort, an dem ich meine Welt teilen, lernen und meine Fantasie lebendig machen kann.",
-    why:"Ich habe NOVA als persönlichen, einladenden und kreativen Ort geschaffen. Die Website wächst mit meinen Ideen und Entdeckungen.",
-    vision:"Meine Vision", visionText:"Kreieren, entdecken, lernen und neue Ideen wachsen lassen.",
-    inspirationLabel:"Eine kleine Pause", inspirationTitle:"Ein Gedanke für dich",
-    anotherQuote:"Ein weiterer Gedanke ↗", footer:"Mit Ruhe und Kreativität gestaltet ✿",
-    quotes:["„Jede Idee ist eine Blume, die auf das Erblühen wartet.“","„Geh in deinem Tempo. Auch kleine Schritte zählen.“","„Du kannst jederzeit neu anfangen.“","„Schönheit steckt manchmal in den Details.“"]
-  },
-  it: {
-    navHome:"Home", navAbout:"Chi sono", navInspiration:"Ispirazione",
-    eyebrow:"Un mondo che mi somiglia", heroTitle:"Benvenuta nel<br><em>mio mondo.</em>",
-    heroText:"Un piccolo angolo di calma, idee e creatività. Ogni dettaglio racconta una storia.",
-    discover:"Scopri NOVA", secretButton:"Un piccolo segreto ✿",
-    secretText:"Qui le idee possono sbocciare. Prenditi il tuo tempo e lascia respirare la fantasia.",
-    aboutLabel:"Qualche parola su di me", aboutTitle:"Dietro NOVA",
-    bio:"Sono una persona curiosa a cui piace creare qualcosa che la rappresenti. NOVA è uno spazio dove condividere il mio mondo, imparare e dare vita alla fantasia.",
-    why:"Ho creato NOVA come uno spazio personale, accogliente e creativo. Il sito crescerà insieme alle mie idee e scoperte.",
-    vision:"La mia visione", visionText:"Creare, esplorare, imparare e far crescere nuove idee.",
-    inspirationLabel:"Una pausa gentile", inspirationTitle:"Un pensiero per te",
-    anotherQuote:"Un altro pensiero ↗", footer:"Immaginato con dolcezza e creatività ✿",
-    quotes:["« Ogni idea è un fiore che aspetta di sbocciare. »","« Vai al tuo ritmo. Anche i piccoli passi contano. »","« Puoi sempre ricominciare. »","« La bellezza a volte si nasconde nei dettagli. »"]
-  },
-  zh: {
-    navHome:"首页", navAbout:"关于我", navInspiration:"灵感",
-    eyebrow:"一个属于我的世界", heroTitle:"欢迎来到<br><em>我的世界。</em>",
-    heroText:"一个充满温柔、想法与创造力的小角落。每个细节都有自己的故事。",
-    discover:"探索 NOVA", secretButton:"一个小秘密 ✿",
-    secretText:"在这里，每个想法都可以开花。慢慢来，让想象自由呼吸。",
-    aboutLabel:"关于我的几句话", aboutTitle:"NOVA 的背后",
-    bio:"我是一个充满好奇心的人，喜欢创造属于自己的东西。NOVA 是我分享世界、学习和实现想象的空间。",
-    why:"我创建 NOVA，是为了拥有一个温暖、私密又有创造力的空间。这个网站会随着我的想法和发现不断成长。",
-    vision:"我的愿景", visionText:"创造、探索、学习，让新的想法生长。",
-    inspirationLabel:"温柔的片刻", inspirationTitle:"送给你的一句话",
-    anotherQuote:"换一句 ↗", footer:"用温柔与创造力设计 ✿",
-    quotes:["“每个想法都是一朵等待绽放的花。”","“按照自己的节奏前进，小小的步伐也很重要。”","“你随时可以重新开始。”","“美有时藏在细节里。”"]
-  },
-  ja: {
-    navHome:"ホーム", navAbout:"私について", navInspiration:"インスピレーション",
-    eyebrow:"私らしい世界", heroTitle:"私の世界へ<br><em>ようこそ。</em>",
-    heroText:"優しさとアイデア、創造力が集まる小さな場所。すべての細部に物語があります。",
-    discover:"NOVAを知る", secretButton:"小さな秘密 ✿",
-    secretText:"ここではアイデアが花開きます。ゆっくりと、自分の想像力を自由にしてみてください。",
-    aboutLabel:"私について少し", aboutTitle:"NOVAの向こう側",
-    bio:"私は好奇心旺盛で、自分らしいものを作ることが好きです。NOVAは自分の世界を共有し、学び、想像力を形にする場所です。",
-    why:"NOVAは、自分らしくいられる温かく創造的な場所として作りました。アイデアや発見とともに成長していきます。",
-    vision:"私のビジョン", visionText:"創造し、探求し、学び、新しいアイデアを育てること。",
-    inspirationLabel:"優しいひと休み", inspirationTitle:"あなたへのひとこと",
-    anotherQuote:"別の言葉 ↗", footer:"優しさと創造力を込めて ✿",
-    quotes:["「すべてのアイデアは、咲くのを待つ花です。」","「自分のペースで進もう。小さな一歩も大切です。」","「いつでも新しく始められます。」","「美しさは細部に隠れていることがあります。」"]
-  },
-  ko: {
-    navHome:"홈", navAbout:"소개", navInspiration:"영감",
-    eyebrow:"나를 닮은 세상", heroTitle:"나의 세계에<br><em>온 걸 환영해.</em>",
-    heroText:"따뜻함과 아이디어, 창의력이 모이는 작은 공간. 모든 디테일에는 이야기가 있어요.",
-    discover:"NOVA 알아보기", secretButton:"작은 비밀 ✿",
-    secretText:"이곳에서는 아이디어가 꽃을 피울 수 있어요. 천천히 둘러보고 상상력을 자유롭게 펼쳐 보세요.",
-    aboutLabel:"나에 대한 몇 마디", aboutTitle:"NOVA의 이야기",
-    bio:"저는 호기심이 많고 나다운 무언가를 만드는 것을 좋아해요. NOVA는 제 세계를 나누고 배우며 상상력을 현실로 만드는 공간이에요.",
-    why:"NOVA는 편안하고 창의적인 나만의 공간을 만들기 위해 시작했어요. 아이디어와 발견을 따라 계속 성장할 거예요.",
-    vision:"나의 비전", visionText:"만들고, 탐험하고, 배우며 새로운 아이디어를 키우기.",
-    inspirationLabel:"잠시 쉬어 가기", inspirationTitle:"당신을 위한 한마디",
-    anotherQuote:"다른 문장 보기 ↗", footer:"따뜻함과 창의력을 담아 ✿",
-    quotes:["“모든 아이디어는 피어나기를 기다리는 꽃이에요.”","“자신의 속도로 나아가세요. 작은 걸음도 소중해요.”","“언제든 새롭게 시작할 수 있어요.”","“아름다움은 때때로 작은 디테일에 숨어 있어요.”"]
-  },
-  tr: {
-    navHome:"Ana sayfa", navAbout:"Hakkımda", navInspiration:"İlham",
-    eyebrow:"Bana benzeyen bir dünya", heroTitle:"<em>Dünyama</em><br>hoş geldin.",
-    heroText:"Sıcaklık, fikirler ve yaratıcılıkla dolu küçük bir köşe. Her ayrıntının bir hikâyesi var.",
-    discover:"NOVA'yı keşfet", secretButton:"Küçük bir sır ✿",
-    secretText:"Burada fikirler çiçek açabilir. Acele etme ve hayal gücüne özgürlük ver.",
-    aboutLabel:"Benim hakkımda birkaç söz", aboutTitle:"NOVA'nın ardında",
-    bio:"Meraklı biriyim ve beni yansıtan şeyler yaratmayı seviyorum. NOVA, dünyamı paylaşabileceğim, öğrenebileceğim ve hayal gücümü gerçeğe dönüştürebileceğim bir alan.",
-    why:"NOVA'yı kişisel, sıcak ve yaratıcı bir alan oluşturmak için kurdum. Bu site fikirlerim ve keşiflerimle büyüyecek.",
-    vision:"Vizyonum", visionText:"Yaratmak, keşfetmek, öğrenmek ve yeni fikirlerin büyümesini sağlamak.",
-    inspirationLabel:"Küçük bir mola", inspirationTitle:"Senin için bir düşünce",
-    anotherQuote:"Başka bir düşünce ↗", footer:"Sıcaklık ve yaratıcılıkla tasarlandı ✿",
-    quotes:["“Her fikir açmayı bekleyen bir çiçektir.”","“Kendi hızında ilerle. Küçük adımlar da önemlidir.”","“Her zaman yeniden başlayabilirsin.”","“Güzellik bazen ayrıntılarda saklıdır.”"]
-  },
-  wo: {
-    navHome:"Dalal", navAbout:"Ci man", navInspiration:"Xel yi",
-    eyebrow:"Sama àddina, sama mel",
-    heroTitle:"Dalal ak<br><em>sama àddina.</em>",
-    heroText:"Bérab bu ndaw bu fees ak dal, xel ak sos. Bépp detail am na nettali.",
-    discover:"Xoolal NOVA", secretButton:"Sirr bu ndaw ✿",
-    secretText:"Fii, xel yi man nañu sax. Bul gaaw, te may sa xel mu dox.",
-    aboutLabel:"Ay kàddu ci man", aboutTitle:"Li nekk gannaaw NOVA",
-    bio:"Dama bëgg xam lu bees te dama bëgg sos lu mel ni man. NOVA mooy bérab bu ma man a séddoo sama àddina, jàng, te wone sama xel.",
-    why:"Sos naa NOVA ngir am bérab bu sama bopp, bu dal te bu fees ak sos. Site bii dina yokku ak sama xel yi ak li ma di gis.",
-    vision:"Sama gis-gis", visionText:"Sos, seet, jàng te may xel yu bees mu sax.",
-    inspirationLabel:"Tànk bu dal", inspirationTitle:"Xel mu la ñeel",
-    anotherQuote:"Beneen xel ↗", footer:"Sos nañu ko ak dal ak xel ✿",
-    quotes:["« Bépp xel mooy tóor-tóor bu bëgg a ubbi. »","« Demal ci sa gaawaay. Tuuti jëf it am na solo. »","« Mën nga tàmbaliwaat saa su ne. »","« Joli gi yenn saa ngi nekk ci detail yi. »"]
-  }
-};
+const flowers = [
+["Rose","Rosa spp.","Classiques","🌹","Asie, Europe et Afrique du Nord","Rouge, rose, blanc, jaune","Amour, affection ou gratitude selon la couleur","Arbustes épineux aux fleurs souvent parfumées.","Les roses sont cultivées depuis des millénaires."],
+["Tulipe","Tulipa spp.","Classiques","🌷","Asie centrale et régions voisines","Nombreuses couleurs","Amour sincère et élégance","Plante bulbeuse qui fleurit surtout au printemps.","Les tulipes ont marqué l'histoire horticole des Pays-Bas."],
+["Pivoine","Paeonia spp.","Classiques","🌸","Europe, Asie et Amérique du Nord","Rose, blanc, rouge","Bonheur, prospérité et tendresse","Grande fleur souvent très fournie.","Certaines pivoines peuvent vivre plusieurs décennies."],
+["Marguerite","Leucanthemum vulgare","Classiques","🌼","Europe et régions tempérées d'Asie","Blanc et jaune","Innocence et simplicité","Fleur composée d'un cœur jaune entouré de ligules blanches.","Ce que l'on appelle une fleur est en réalité un ensemble de petites fleurs."],
+["Tournesol","Helianthus annuus","Classiques","🌻","Amérique du Nord","Jaune, brun, orangé","Joie, admiration et fidélité","Grande plante annuelle dont les jeunes capitules suivent le soleil.","Un capitule peut contenir des centaines de petites fleurs."],
+["Lys","Lilium spp.","Classiques","⚜️","Hémisphère nord","Blanc, rose, orange, rouge","Pureté, noblesse ou renouveau","Plante bulbeuse aux grandes fleurs souvent parfumées.","Certaines espèces sont très toxiques pour les chats."],
+["Orchidée","Orchidaceae","Classiques","🪻","Tous les continents sauf l'Antarctique","Très variées","Raffinement et admiration","Famille immense aux formes et stratégies de pollinisation variées.","Les orchidées forment l'une des plus grandes familles de plantes à fleurs."],
+["Jasmin","Jasminum spp.","Classiques","🤍","Eurasie et régions tropicales","Blanc, jaune, rose","Douceur et affection","Fleurs souvent étoilées et parfumées.","Le parfum de plusieurs jasmins est utilisé en parfumerie."],
+["Lavande","Lavandula spp.","Classiques","💜","Région méditerranéenne","Violet, bleu, rose, blanc","Calme et sérénité","Sous-arbrisseau aromatique apprécié des pollinisateurs.","Son parfum provient notamment de composés présents dans ses huiles essentielles."],
+["Iris","Iris spp.","Classiques","🪻","Zones tempérées de l'hémisphère nord","Violet, bleu, jaune, blanc","Espoir, sagesse et confiance","Fleur à trois pétales dressés et trois sépales souvent retombants.","Son nom vient du grec et signifie arc-en-ciel."],
+["Violette","Viola odorata","Classiques","💜","Europe et Asie occidentale","Violet, blanc","Modestie et fidélité","Petite fleur basse, parfois très parfumée.","Les violettes odorantes ont inspiré parfumeurs et confiseurs."],
+["Coquelicot","Papaver rhoeas","Classiques","🌺","Europe, Afrique du Nord et Asie occidentale","Rouge","Souvenir et fragilité","Fleur délicate des champs et terrains remués.","Ses pétales froissés tombent facilement après la floraison."],
+["Jonquille","Narcissus jonquilla","Classiques","🌼","Péninsule Ibérique","Jaune","Renouveau et retour des beaux jours","Narcisse à fleurs jaunes et feuilles fines.","Le nom jonquille désigne précisément certaines espèces de narcisses."],
+["Narcisse","Narcissus spp.","Classiques","🌼","Europe et Afrique du Nord","Blanc, jaune, orange","Nouveau départ et espoir","Fleur à couronne centrale caractéristique.","Toutes les parties de nombreux narcisses sont toxiques si elles sont ingérées."],
+["Camélia","Camellia japonica","Classiques","🌺","Asie de l'Est","Rouge, rose, blanc","Admiration et élégance","Arbuste persistant aux fleurs souvent très régulières.","Le théier appartient lui aussi au genre Camellia."],
+["Hortensia","Hydrangea spp.","Classiques","💠","Asie et Amériques","Bleu, rose, blanc, violet","Gratitude ou abondance","Inflorescences en boules ou en panicules.","La couleur de certaines espèces varie selon le pH et l'aluminium du sol."],
+["Dahlia","Dahlia spp.","Classiques","🌺","Mexique et Amérique centrale","Très variées","Créativité et élégance","Plante à tubercules offrant une grande diversité de formes.","Le dahlia est la fleur nationale du Mexique."],
+["Œillet","Dianthus caryophyllus","Classiques","🌸","Région méditerranéenne","Rose, rouge, blanc, jaune","Affection et distinction","Fleur aux pétales souvent dentelés.","L'œillet est cultivé depuis l'Antiquité."],
+["Muguet","Convallaria majalis","Classiques","鈴","Europe et Asie tempérée","Blanc","Porte-bonheur et bonheur retrouvé","Petites clochettes blanches sur une hampe arquée.","Toute la plante est toxique en cas d'ingestion."],
+["Lilas","Syringa vulgaris","Classiques","💜","Europe du Sud-Est","Lilas, violet, blanc","Souvenirs et premières émotions","Arbuste aux grappes de fleurs parfumées.","Le lilas commun appartient à la famille des oléacées."],
+["Gardénia","Gardenia jasminoides","Classiques","🤍","Asie de l'Est","Blanc, crème","Grâce et sincérité","Fleurs blanches cireuses au parfum puissant.","Ses fleurs brunissent facilement avec l'âge."],
+["Glaïeul","Gladiolus spp.","Classiques","🌺","Afrique, Europe et Asie","Multiples couleurs","Force et intégrité","Épis dressés portant de nombreuses fleurs.","Son nom évoque le glaive, en référence à ses feuilles."],
+["Renoncule","Ranunculus asiaticus","Classiques","🌼","Méditerranée orientale","Rose, rouge, jaune, blanc","Charme et attirance","Fleur très double aux nombreux pétales fins.","Elle est souvent utilisée dans les bouquets de printemps."],
+["Anémone","Anemone spp.","Classiques","🌸","Zones tempérées de l'hémisphère nord","Blanc, rose, rouge, violet","Anticipation et fragilité","Fleur simple au cœur souvent contrasté.","Certaines anémones sauvages poussent dans les sous-bois."],
+["Cosmos","Cosmos bipinnatus","Classiques","🌸","Mexique","Rose, blanc, violet","Harmonie et simplicité","Fleur légère portée par de longues tiges fines.","Le cosmos attire de nombreux insectes pollinisateurs."],
+["Zinnia","Zinnia elegans","Classiques","🌺","Mexique","Très variées","Amitié et constance","Fleur annuelle aux capitules colorés.","Les zinnias sont faciles à cultiver en plein soleil."],
+["Gerbera","Gerbera jamesonii","Classiques","🌼","Afrique australe","Rose, orange, jaune, rouge","Joie et optimisme","Grand capitule aux couleurs vives.","Le gerbera appartient à la famille des astéracées."],
+["Freesia","Freesia spp.","Classiques","🌸","Afrique australe","Blanc, jaune, rose, violet","Confiance et innocence","Fleurs en entonnoir souvent très parfumées.","Le freesia est apprécié en fleur coupée."],
+["Cyclamen","Cyclamen spp.","Classiques","🌸","Europe et bassin méditerranéen","Rose, blanc, rouge","Tendresse et sincérité","Pétales relevés et feuilles souvent marbrées.","Il pousse souvent dans des milieux ombragés."],
+["Pensée","Viola × wittrockiana","Classiques","🌼","Hybride horticole issu d'espèces européennes","Multicolore","Pensée affectueuse et souvenir","Fleur reconnaissable à ses motifs semblables à un visage.","Les pensées supportent assez bien les températures fraîches."],
+["Primevère","Primula vulgaris","Classiques","🌼","Europe occidentale et méridionale","Jaune, rose, violet","Jeunesse et renouveau","Petite fleur printanière en rosette.","Son nom signifie approximativement première fleur du printemps."],
+["Bleuet","Centaurea cyanus","Classiques","💙","Europe","Bleu, rose, blanc","Délicatesse et fidélité","Fleur sauvage des anciennes cultures céréalières.","Le bleuet est devenu rare dans certaines régions agricoles intensives."],
+["Chrysanthème","Chrysanthemum spp.","Classiques","🌼","Asie de l'Est","Blanc, jaune, rose, bronze","Longévité et respect","Capitules très variés selon les cultivars.","En Asie, il est associé à l'automne et à la longévité."],
+["Gypsophile","Gypsophila paniculata","Classiques","🤍","Europe et Asie","Blanc, rose","Pureté et douceur","Nuage de minuscules fleurs ramifiées.","Il est très utilisé pour donner du volume aux bouquets."],
+["Muflier","Antirrhinum majus","Classiques","🌺","Région méditerranéenne","Nombreuses couleurs","Force et grâce","Fleurs dont la forme évoque une petite gueule.","Les fleurs peuvent s'ouvrir lorsqu'on presse doucement leurs côtés."],
+["Pétunia","Petunia × hybrida","Classiques","🌸","Amérique du Sud, origine des espèces parentes","Nombreuses couleurs","Présence et affection","Fleurs en trompette très utilisées en jardinières.","Les pétunias sont souvent cultivés comme annuelles."],
+["Clématite","Clematis spp.","Classiques","🌸","Europe, Asie et Amériques","Blanc, rose, violet, bleu","Ingéniosité et beauté d'esprit","Plante grimpante aux fleurs parfois spectaculaires.","Certaines espèces s'accrochent grâce à leurs pétioles volubiles."],
+["Glycine","Wisteria sinensis","Classiques","💜","Chine","Violet, blanc, rose","Tendresse et nostalgie","Liane ligneuse à longues grappes pendantes.","Une glycine peut devenir très ancienne et très volumineuse."],
+["Magnolia","Magnolia grandiflora","Classiques","🤍","Sud-est des États-Unis","Blanc crème, rose","Dignité et persévérance","Grandes fleurs souvent parfumées et feuilles persistantes.","Les magnolias comptent parmi les lignées anciennes de plantes à fleurs."],
+["Hibiscus","Hibiscus rosa-sinensis","Classiques","🌺","Asie tropicale, origine horticole complexe","Rouge, rose, jaune, orange","Beauté et hospitalité","Grande corolle avec une longue colonne d'étamines.","Les fleurs de certaines espèces sont utilisées en infusion ou en cuisine."],
+["Oiseau de paradis","Strelitzia reginae","Tropicales","🦜","Afrique du Sud","Orange et bleu","Liberté et joie","Fleur évoquant la tête d'un oiseau exotique.","Elle est pollinisée par des oiseaux dans son milieu d'origine."],
+["Frangipanier","Plumeria rubra","Tropicales","🌸","Amérique tropicale","Blanc, rose, jaune","Accueil et beauté","Fleurs cireuses très parfumées.","Son latex peut irriter la peau."],
+["Héliconia","Heliconia spp.","Tropicales","🧡","Amérique tropicale et îles du Pacifique","Rouge, orange, jaune","Exotisme et vitalité","Bractées colorées en forme de bec ou de pince.","Les fleurs véritables sont cachées à l'intérieur des bractées."],
+["Passiflore","Passiflora caerulea","Tropicales","💠","Amérique du Sud","Blanc, bleu, violet","Foi et paix dans certaines traditions","Fleur complexe avec une couronne de filaments.","La structure de la fleur a inspiré son nom religieux européen."],
+["Alpinia","Alpinia purpurata","Tropicales","❤️","Pacifique et Asie tropicale selon les espèces","Rouge, rose, blanc","Énergie et élégance","Inflorescence souvent portée par des bractées colorées.","Certaines espèces sont cultivées comme fleurs coupées tropicales."],
+["Anthurium","Anthurium andraeanum","Tropicales","❤️","Amérique centrale et du Sud","Rouge, rose, blanc, vert","Hospitalité et abondance","La partie brillante en forme de cœur est une spathe, pas une pétale.","Il appartient à la famille des aracées."],
+["Bougainvillier","Bougainvillea spp.","Tropicales","🌺","Amérique du Sud","Rose, violet, rouge, blanc, orange","Accueil et passion","Les couleurs vives viennent de bractées entourant de petites fleurs.","Il supporte bien la chaleur une fois installé."],
+["Canna","Canna indica","Tropicales","🌺","Amériques tropicales","Rouge, orange, jaune","Confiance et grandeur","Grandes feuilles et fleurs éclatantes.","Certaines variétés sont cultivées pour leurs rhizomes comestibles."],
+["Ixora","Ixora coccinea","Tropicales","🧡","Asie tropicale","Rouge, orange, jaune, rose","Joie et lien social","Petites fleurs regroupées en bouquets denses.","Il attire papillons et autres pollinisateurs."],
+["Lantana","Lantana camara","Tropicales","🌼","Amériques tropicales","Jaune, orange, rose, rouge","Changement et diversité","Petites fleurs réunies en inflorescences multicolores.","L'espèce peut devenir envahissante dans certaines régions."],
+["Médinilla","Medinilla magnifica","Tropicales","💗","Philippines","Rose, rose pâle","Raffinement et singularité","Grandes grappes pendantes entourées de bractées roses.","Elle pousse naturellement dans les forêts tropicales humides."],
+["Tacca chauve-souris","Tacca chantrieri","Tropicales","🦇","Asie du Sud-Est","Pourpre très sombre, brun","Mystère et originalité","Bractées sombres et longs filaments pendants.","Ses filaments peuvent donner l'impression d'ailes."],
+["Ylang-ylang","Cananga odorata","Tropicales","💛","Asie du Sud-Est","Jaune-vert","Sensualité et douceur","Fleurs étoilées aux pétales étroits et parfum intense.","Son huile essentielle est utilisée en parfumerie."],
+["Fleur de porcelaine","Hoya carnosa","Tropicales","🤍","Asie orientale et Australie","Blanc rosé","Délicatesse et attachement","Petites fleurs cireuses en ombelles.","Les fleurs produisent parfois des gouttes de nectar."],
+["Gingembre rouge","Alpinia purpurata","Tropicales","❤️","Pacifique sud-ouest","Rouge, rose","Vitalité et chaleur","Inflorescence rouge portée par une tige dressée.","Il est proche des gingembres culinaires."],
+["Allamanda","Allamanda cathartica","Tropicales","💛","Amérique du Sud","Jaune","Optimisme et lumière","Grandes fleurs en trompette.","Sa sève peut être irritante et toutes les parties ne sont pas comestibles."],
+["Gloriosa","Gloriosa superba","Tropicales","🔥","Afrique tropicale et Asie","Rouge et jaune","Fierté et gloire","Pétales recourbés vers le haut, donnant une silhouette flamboyante.","La plante est toxique et contient de la colchicine."],
+["Lotus sacré","Nelumbo nucifera","Tropicales","🪷","Asie et nord de l'Australie","Rose, blanc","Éveil et pureté dans plusieurs traditions asiatiques","Plante aquatique aux feuilles et fleurs émergentes.","Ses graines peuvent rester viables très longtemps dans des conditions favorables."],
+["Fleur de jade","Strongylodon macrobotrys","Tropicales","💎","Philippines","Turquoise à vert jade","Rareté et beauté précieuse","Liane tropicale aux longues grappes de fleurs turquoise.","Ses fleurs sont adaptées à la pollinisation par les chauves-souris."],
+["Protea royale","Protea cynaroides","Tropicales","👑","Afrique du Sud","Rose, crème, rouge","Diversité et courage","Grand capitule entouré de bractées imposantes.","C'est la fleur nationale de l'Afrique du Sud."],
+["Reine de la nuit","Epiphyllum oxypetalum","Tropicales","🌙","Amérique centrale et Caraïbes","Blanc","Beauté éphémère et mystère","Grandes fleurs blanches qui s'ouvrent la nuit.","Une fleur ne reste généralement ouverte qu'une nuit."],
+["Orchidée fantôme","Dendrophylax lindenii","Rares","👻","Floride, Cuba et Bahamas","Blanc","Mystère et discrétion","Orchidée sans feuilles apparentes, aux racines vertes photosynthétiques.","Elle dépend de conditions écologiques très spécifiques."],
+["Middlemist Red","Camellia japonica cultivar 'Middlemist's Red'","Rares","🌺","Origine horticole chinoise; spécimens célèbres au Royaume-Uni et en Nouvelle-Zélande","Rose soutenu","Rareté et préservation","Camélia à fleurs roses, connu par un nombre infime de spécimens cultivés documentés.","L'affirmation des deux seuls spécimens connus concerne les plants célèbres signalés, pas un recensement mondial exhaustif."],
+["Kadupul","Epiphyllum oxypetalum","Rares","🌙","Sri Lanka et régions tropicales d'Amérique selon les formes cultivées","Blanc","Éphémère et précieux","Fleur nocturne qui se fane rapidement après l'aube.","Le nom Kadupul est associé au Sri Lanka; il ne désigne pas une espèce botanique distincte clairement établie."],
+["Orchidée de Rothschild","Paphiopedilum rothschildianum","Rares","👑","Bornéo, Malaisie","Bordeaux, crème, rayures sombres","Prestige et rareté","Orchidée sabot de grande taille aux longs pétales horizontaux.","Elle est menacée par la collecte illégale et la perte d'habitat."],
+["Sabot de Vénus","Cypripedium calceolus","Rares","👠","Europe et Asie tempérée","Jaune et brun pourpre","Élégance et singularité","Orchidée dont le labelle forme une poche ressemblant à un sabot.","Elle est protégée dans de nombreuses régions."],
+["Orchidée de Darwin","Angraecum sesquipedale","Rares","⭐","Madagascar","Blanc","Émerveillement et adaptation","Orchidée blanche dotée d'un long éperon nectarifère.","Darwin avait prédit l'existence d'un pollinisateur à trompe très longue."],
+["Orchidée colombe","Peristeria elata","Rares","🕊️","Amérique centrale, notamment Panama","Blanc","Paix et pureté","La colonne centrale rappelle parfois une petite colombe.","C'est la fleur nationale du Panama."],
+["Orchidée singe","Dracula simia","Rares","🐵","Forêts nuageuses des Andes, Équateur et Pérou","Brun, crème, rougeâtre","Fantaisie et étonnement","La disposition de ses pièces florales évoque un visage de singe.","Elle pousse dans des forêts fraîches et humides."],
+["Orchidée abeille","Ophrys apifera","Rares","🐝","Europe et bassin méditerranéen","Rose, brun, jaune","Ruse et séduction","Labelle imitant l'apparence d'une abeille.","Elle utilise une stratégie de leurre visuel et parfois olfactif."],
+["Orchidée canard volant","Caleana major","Rares","🦆","Australie","Rouge brun","Originalité et liberté","Fleur dont la forme évoque un petit canard en vol.","Elle dépend d'insectes pollinisateurs spécifiques."],
+["Orchidée noire","Fredclarkeara After Dark (hybride)","Rares","🖤","Hybride horticole","Bordeaux très sombre, presque noir","Mystère et élégance","Hybride d'orchidée aux fleurs très foncées.","Les orchidées réellement noires sont généralement d'un bordeaux profond."],
+["Gentiane de Koch","Gentiana acaulis","Rares","💙","Montagnes d'Europe","Bleu intense","Confiance et détermination","Fleur en trompette bleu vif des pelouses alpines.","Elle pousse dans des prairies montagnardes calcaires ou siliceuses selon les populations."],
+["Edelweiss","Leontopodium alpinum","Rares","❄️","Montagnes d'Europe","Blanc argenté","Courage et souvenir","Petites inflorescences entourées de bractées laineuses.","Ses poils la protègent du froid et du rayonnement intense."],
+["Fleur de Franklin","Franklinia alatamaha","Rares","🤍","États-Unis, espèce disparue à l'état sauvage","Blanc à cœur jaune","Mémoire et conservation","Arbre à fleurs blanches de la famille des théacées.","Il n'existe plus à l'état sauvage; les plants actuels descendent de cultures historiques."],
+["Lis de feu","Gloriosa superba","Rares","🔥","Afrique tropicale et Asie","Rouge et jaune","Fierté et beauté spectaculaire","Fleur aux pétales flamboyants fortement recourbés.","Elle est toxique, malgré son apparence séduisante."],
+["Primevère de Sibérie","Primula nutans","Rares","💜","Régions arctiques et subarctiques d'Eurasie et d'Amérique du Nord","Rose, violet","Résilience et douceur","Petite primevère des milieux froids et humides.","Son habitat naturel est fragile face aux changements climatiques."],
+["Campanule de Rainer","Campanula raineri","Rares","💜","Alpes du sud","Bleu-violet","Persévérance","Campanule alpine compacte des fissures rocheuses.","Elle pousse dans des habitats montagnards spécialisés."],
+["Orchidée bleue de Vanda","Vanda coerulea","Rares","💙","Himalaya oriental et Asie du Sud-Est","Bleu violacé","Rareté et fascination","Orchidée épiphyte aux fleurs bleu-violet réticulées.","La vraie teinte bleue est inhabituelle chez les orchidées."],
+["Pavot bleu de l'Himalaya","Meconopsis betonicifolia","Rares","💠","Himalaya oriental","Bleu ciel","Rêve et quête","Grande fleur bleue adaptée aux climats frais.","Il demande des conditions de culture particulières."],
+["Fleur squelette","Diphylleia grayi","Insolites","💧","Japon, Chine et régions montagneuses d'Asie","Blanc, translucide mouillé","Transformation et délicatesse","Ses pétales deviennent presque transparents lorsqu'ils sont mouillés.","L'effet vient de la structure des cellules et de l'eau entre elles."],
+["Fleur perroquet","Impatiens psittacina","Insolites","🦜","Thaïlande, Birmanie et régions voisines","Pourpre, rouge, vert","Fantaisie et liberté","Fleur dont le profil évoque un perroquet en vol.","Elle est rare en culture et sa collecte est réglementée dans certaines zones."],
+["Fleur cadavre","Amorphophallus titanum","Insolites","☠️","Sumatra, Indonésie","Bordeaux et vert","Mystère et puissance","Immense inflorescence qui dégage une odeur de chair en décomposition.","Elle peut mettre plusieurs années avant de fleurir."],
+["Fleur de cire","Hoya carnosa","Insolites","🕯️","Asie orientale et Australie","Blanc rosé","Douceur et constance","Fleurs épaisses et cireuses regroupées en ombelles.","Certaines fleurs restent parfumées surtout le soir."],
+["Orchidée homme nu","Orchis italica","Insolites","🧍","Méditerranée","Rose et violet","Humour et étonnement","Fleurs dont la silhouette peut rappeler un petit personnage.","C'est une orchidée terrestre méditerranéenne."],
+["Orchidée visage de singe","Dracula simia","Insolites","🐵","Andes équatoriennes et péruviennes","Crème, brun","Surprise et curiosité","Fleur dont les détails évoquent un visage de singe.","Elle apprécie les forêts fraîches et brumeuses."],
+["Fleur étoile de mer","Stapelia gigantea","Insolites","⭐","Afrique australe","Crème, jaune, rouge","Étrangeté et adaptation","Grande fleur étoilée souvent couverte de motifs et de poils.","Son odeur attire des mouches qui assurent la pollinisation."],
+["Fleur de cobra","Darlingtonia californica","Insolites","🐍","Côte pacifique des États-Unis","Vert et rouge","Ruse et patience","Plante carnivore dont la feuille-piège rappelle un cobra dressé.","Elle pousse dans des milieux frais alimentés par une eau pauvre en nutriments."],
+["Fleur de paon","Caesalpinia pulcherrima","Insolites","🦚","Amériques tropicales","Rouge, orange, jaune","Fierté et éclat","Fleurs aux longues étamines qui dépassent des pétales.","L'arbuste est cultivé dans de nombreuses régions chaudes."],
+["Fleur de dragon","Dracunculus vulgaris","Insolites","🐉","Méditerranée orientale et Balkans","Pourpre sombre et noirâtre","Force et mystère","Grande spathe sombre autour d'un spadice.","Elle dégage une odeur attirant les mouches pollinisatrices."],
+["Fleur de chauve-souris blanche","Tacca integrifolia","Insolites","🦇","Asie du Sud et du Sud-Est","Blanc, violet","Mystère et singularité","Grandes bractées claires et longs filaments.","Elle appartient au même genre que la tacca noire."],
+["Fleur de lanterne","Abutilon megapotamicum","Insolites","🏮","Brésil","Rouge et jaune","Accueil et lumière","Fleurs pendantes en forme de petite lanterne.","Elle peut être cultivée comme arbuste grimpant dans les climats doux."],
+["Fleur de chauve-souris noire","Tacca chantrieri","Insolites","🦇","Asie du Sud-Est","Brun pourpre très sombre","Énigme et audace","Bractées sombres évoquant des ailes.","Ses longues bractéoles filiformes sont particulièrement reconnaissables."],
+["Fleur de flamant rose","Anthurium andraeanum","Insolites","🦩","Amérique tropicale","Rose, rouge, blanc","Hospitalité et beauté","Spathe colorée en forme de cœur autour d'un spadice.","Le nom populaire vient de la silhouette élégante de la spathe."],
+["Fleur de crâne","Antirrhinum majus (forme de capsule sèche)","Insolites","💀","Région méditerranéenne","Fleurs colorées; capsules brunes","Éphémère et transformation","Après la floraison, les capsules de certaines gueules-de-loup évoquent un petit crâne.","L'apparence surprenante concerne le fruit sec, pas la fleur ouverte."],
+["Fleur de chocolat","Cosmos atrosanguineus","Insolites","🍫","Mexique","Bordeaux très sombre","Passion et gourmandise","Fleur sombre dégageant une odeur rappelant le chocolat.","L'espèce sauvage est considérée comme éteinte; les plants cultivés sont multipliés végétativement."],
+["Fleur de sang","Haemanthus coccineus","Insolites","🩸","Afrique australe","Rouge vif","Vitalité et force","Inflorescence en boule rouge portée par une hampe.","Elle fleurit souvent après les pluies, parfois avant l'apparition des feuilles."],
+["Fleur de hibou","Calceolaria uniflora","Insolites","🦉","Terres australes d'Amérique du Sud","Jaune, blanc, brun","Curiosité et originalité","Fleur à poche dont les motifs peuvent évoquer un petit oiseau.","Elle pousse dans des milieux froids et venteux de Patagonie."],
+["Fleur de clown","Ceropegia haygarthii","Insolites","🎭","Afrique australe","Crème, pourpre, vert","Fantaisie et tromperie","Fleur tubulaire aux motifs complexes.","Certaines ceropegias piègent temporairement de petits insectes pour favoriser la pollinisation."],
+["Fleur de papillon","Schizanthus pinnatus","Insolites","🦋","Chili","Rose, violet, blanc","Liberté et légèreté","Fleurs découpées et colorées qui rappellent des ailes.","Son nom commun anglais est butterfly flower."],
+["Fleur de porcelaine rose","Hoya pubicalyx","Insolites","🌸","Philippines","Rose, rouge sombre","Attachement et délicatesse","Ombelles de fleurs étoilées à texture cireuse.","Les hoyas sont des plantes grimpantes ou retombantes appréciées en intérieur."],
+["Fleur de glace","Drosanthemum floribundum","Insolites","❄️","Afrique australe","Rose, violet","Résistance et éclat","Plante succulente aux fleurs brillantes et aux feuilles couvertes de cellules scintillantes.","Les reflets viennent de cellules spécialisées qui diffusent la lumière."]
+];
 
-const lang = document.getElementById("language");
-const topQuote = document.getElementById("topQuote");
-const mainQuote = document.getElementById("mainQuote");
-let quoteIndex = 0;
+const quotes=["« Chaque fleur prend son temps pour s'ouvrir. »","« Il y a des beautés qu'on ne remarque que lorsqu'on prend le temps de regarder. »","« La nature n'est jamais pressée, et pourtant tout finit par fleurir. »","« Une petite découverte peut changer toute une journée. »","« Même les endroits les plus discrets peuvent cacher des merveilles. »"];
+let quoteIndex=0;
+function nextQuote(){quoteIndex=(quoteIndex+1)%quotes.length;document.getElementById('topQuote').textContent=quotes[quoteIndex];document.getElementById('mainQuote').textContent=quotes[(quoteIndex+1)%quotes.length]}
+document.getElementById('nextTopQuote').addEventListener('click',nextQuote);document.getElementById('nextMainQuote').addEventListener('click',nextQuote);
 
-function setLanguage(code) {
-  const t = words[code] || words.fr;
-
-  document.documentElement.lang = code;
-  document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
-
-  document.querySelectorAll("[data-t]").forEach(el => {
-    const key = el.dataset.t;
-    if (t[key]) el.innerHTML = t[key];
-  });
-
-  quoteIndex = 0;
-  topQuote.textContent = t.quotes[0];
-  mainQuote.textContent = t.quotes[1 % t.quotes.length];
-  lang.value = code;
+const grid=document.getElementById('flowerGrid'),rareGrid=document.getElementById('rareGrid'),favoriteGrid=document.getElementById('favoriteGrid');
+const search=document.getElementById('searchFlower'),filter=document.getElementById('categoryFilter');
+const favorites=new Set(JSON.parse(localStorage.getItem('novaFavorites')||'[]'));
+function saveFavorites(){localStorage.setItem('novaFavorites',JSON.stringify([...favorites]))}
+function card(f){
+ const [name,latin,category,emoji,origin,colors,meaning,description,fact]=f;
+ const idx=flowers.indexOf(f),isFav=favorites.has(name);
+ return `<article class="flower-card"><div class="flower-art" aria-hidden="true">${emoji}</div><div class="flower-info"><div class="tags"><span class="tag">${category}</span><span class="tag">${colors}</span></div><h3>${name}</h3><span class="latin">${latin}</span><p>${description}</p><p><strong>Symbolique :</strong> ${meaning}</p><div class="card-actions"><button class="icon-btn" data-detail="${idx}">Voir la fiche</button><button class="icon-btn ${isFav?'active':''}" data-fav="${idx}" aria-label="${isFav?'Retirer':'Ajouter'} ${name} ${isFav?'des':'aux'} favoris">${isFav?'♥':'♡'} Favori</button></div></div></article>`;
 }
-
-lang.addEventListener("change", e => setLanguage(e.target.value));
-
-function nextQuote() {
-  const t = words[lang.value] || words.fr;
-  quoteIndex = (quoteIndex + 1) % t.quotes.length;
-  topQuote.textContent = t.quotes[quoteIndex];
-  mainQuote.textContent = t.quotes[(quoteIndex + 1) % t.quotes.length];
+function render(){
+ const q=search.value.trim().toLocaleLowerCase('fr'),cat=filter.value;
+ const found=flowers.filter(f=>(cat==='all'||f[2]===cat)&&f.join(' ').toLocaleLowerCase('fr').includes(q));
+ grid.innerHTML=found.map(card).join('')||'<p class="empty">Aucune fleur ne correspond à ta recherche. Essaie un autre nom ou une autre catégorie.</p>';
+ document.getElementById('resultCount').textContent=`${found.length} fleur${found.length>1?'s':''} affichée${found.length>1?'s':''} sur ${flowers.length}.`;
+ rareGrid.innerHTML=flowers.filter(f=>f[2]==='Rares'||f[2]==='Insolites').map(card).join('');
+ const favs=flowers.filter(f=>favorites.has(f[0]));
+ favoriteGrid.innerHTML=favs.map(card).join('');
+ document.getElementById('favoriteEmpty').hidden=favs.length>0;
 }
-
-document.getElementById("nextTopQuote").addEventListener("click", nextQuote);
-document.getElementById("nextMainQuote").addEventListener("click", nextQuote);
-
-document.getElementById("secretButton").addEventListener("click", () => {
-  const secret = document.getElementById("secret");
-  secret.hidden = !secret.hidden;
+function showDetails(index){
+ const f=flowers[index];if(!f)return;
+ document.getElementById('dialogName').textContent=f[0];
+ document.getElementById('dialogLatin').textContent=f[1];
+ document.getElementById('dialogEmoji').textContent=f[3];
+ document.getElementById('detailOrigin').textContent=f[4]+' · '+f[2];
+ document.getElementById('detailColors').textContent=f[5];
+ document.getElementById('detailMeaning').textContent=f[6];
+ document.getElementById('detailDescription').textContent=f[7];
+ document.getElementById('detailFact').textContent=f[8];
+ document.getElementById('flowerDialog').showModal();
+}
+document.addEventListener('click',e=>{
+ const detail=e.target.closest('[data-detail]'),fav=e.target.closest('[data-fav]');
+ if(detail)showDetails(Number(detail.dataset.detail));
+ if(fav){const f=flowers[Number(fav.dataset.fav)];if(!f)return;favorites.has(f[0])?favorites.delete(f[0]):favorites.add(f[0]);saveFavorites();render()}
 });
+search.addEventListener('input',render);filter.addEventListener('change',render);
+document.getElementById('closeDialog').addEventListener('click',()=>document.getElementById('flowerDialog').close());
+document.getElementById('flowerDialog').addEventListener('click',e=>{if(e.target.id==='flowerDialog')e.target.close()});
+const dayIndex=Math.floor(Date.now()/86400000)%flowers.length, daily=flowers[dayIndex];
+document.getElementById('dailyName').textContent=daily[0];document.getElementById('dailyArt').textContent=daily[3];
+document.getElementById('dailyText').textContent=`${daily[7]} Origine : ${daily[4]}. Symbolique : ${daily[6]}.`;
+document.getElementById('dailyDetails').addEventListener('click',()=>showDetails(dayIndex));
+document.getElementById('year').textContent=new Date().getFullYear();
+render();
 
-document.getElementById("year").textContent = new Date().getFullYear();
+const themeToggle=document.getElementById('themeToggle');
+if(localStorage.getItem('novaTheme')==='dark'){document.body.classList.add('dark-mode');themeToggle.textContent='☀️ Mode jour'}
+themeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark-mode');const dark=document.body.classList.contains('dark-mode');localStorage.setItem('novaTheme',dark?'dark':'light');themeToggle.textContent=dark?'☀️ Mode jour':'🌙 Mode nuit'});
+const back=document.getElementById('backToTop');window.addEventListener('scroll',()=>back.classList.toggle('visible',window.scrollY>300));back.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-/* Créer beaucoup de fleurs et quelques feuilles */
-const garden = document.getElementById("garden");
-const flowers = [];
-const leaves = [];
-const symbols = ["✿", "❀", "✾", "✽", "✿", "❁", "❀", "✻"];
+const garden=document.getElementById('garden'),decorFlowers=[],decorLeaves=[],symbols=['✿','❀','✾','✽','❁','✻'];
+for(let i=0;i<24;i++){const el=document.createElement('div');el.className='flower';el.innerHTML='<span>'+symbols[i%symbols.length]+'</span>';el.style.fontSize=(18+(i*13)%35)+'px';garden.appendChild(el);decorFlowers.push({el,x:(i*41+5)%100,y:(i*67+4)%100,phase:i*1.6,depth:.025+(i%5)*.014})}
+for(let i=0;i<7;i++){const el=document.createElement('div');el.className='leaf';el.style.width=(45+i*5)+'px';el.style.transform=`rotate(${i*41}deg)`;garden.appendChild(el);decorLeaves.push({el,x:(i*31+10)%100,y:(i*47+13)%100,phase:i*2,depth:.03})}
+let mx=0,my=0,active=false;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,hover=matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(!reduced&&hover)document.addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;active=true},{passive:true});
+function animate(t){if(!reduced){[...decorFlowers,...decorLeaves].forEach(o=>{const x=o.x/100*innerWidth+Math.sin(t/1700+o.phase)*6+(active?mx*o.depth*100:0),y=o.y/100*innerHeight+Math.cos(t/2100+o.phase)*7+(active?my*o.depth*100:0);o.el.style.transform=`translate3d(${x}px,${y}px,0)`})}requestAnimationFrame(animate)}
+if(!reduced)requestAnimationFrame(animate);
 
-for (let i = 0; i < 32; i++) {
-  const flower = document.createElement("div");
-  flower.className = "flower";
-  flower.innerHTML = "<span>" + symbols[i % symbols.length] + "</span>";
-
-  const size = 18 + ((i * 17) % 43);
-  const x = (i * 37.7 + 4) % 100;
-  const y = (i * 61.3 + 7) % 100;
-
-  flower.style.fontSize = size + "px";
-  flower.style.opacity = String(0.28 + (i % 6) * 0.09);
-  garden.appendChild(flower);
-
-  flowers.push({
-    el: flower,
-    x: x,
-    y: y,
-    depth: 0.035 + (i % 6) * 0.018,
-    phase: i * 1.7
-  });
-}
-
-for (let i = 0; i < 9; i++) {
-  const leaf = document.createElement("div");
-  leaf.className = "leaf";
-  const x = (i * 29.3 + 12) % 100;
-  const y = (i * 43.7 + 5) % 100;
-  leaf.style.width = (48 + i * 4) + "px";
-  leaf.style.transform = "rotate(" + (i * 37) + "deg)";
-  garden.appendChild(leaf);
-
-  leaves.push({
-    el: leaf,
-    x: x,
-    y: y,
-    depth: 0.025 + (i % 4) * 0.025,
-    phase: i * 2.1
-  });
-}
-
-/* Mouvement fluide des fleurs vers la souris */
-let mouseX = 0;
-let mouseY = 0;
-let pointerActive = false;
-let frame = 0;
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-if (!reducedMotion && canHover) {
-  document.addEventListener("pointermove", e => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    pointerActive = true;
-  }, { passive: true });
-}
-
-function animateGarden(time) {
-  if (!reducedMotion) {
-    [...flowers, ...leaves].forEach((item, i) => {
-      const swayX = Math.sin(time / 1700 + item.phase) * 7;
-      const swayY = Math.cos(time / 2100 + item.phase) * 8;
-      const followX = pointerActive ? mouseX * item.depth * 100 : 0;
-      const followY = pointerActive ? mouseY * item.depth * 100 : 0;
-      const left = item.x / 100 * window.innerWidth;
-      const top = item.y / 100 * window.innerHeight;
-
-      item.el.style.transform =
-        "translate3d(" +
-        (left + swayX + followX) + "px," +
-        (top + swayY + followY) + "px,0)";
-
-      item.el.style.marginLeft = "0";
-      item.el.style.marginTop = "0";
-    });
-  }
-
-  frame = requestAnimationFrame(animateGarden);
-}
-
-if (!reducedMotion) {
-  frame = requestAnimationFrame(animateGarden);
-}
-
-setLanguage("fr");
+// Le sélecteur de langue reste disponible dans l'interface. Les traductions
+// des fiches botaniques seront ajoutées progressivement, sans traductions automatiques trompeuses.
+document.getElementById('language').addEventListener('change',e=>{
+ const lang=e.target.value;
+ if(lang!=='fr'){alert("La navigation et les fiches botaniques sont actuellement disponibles en français. Les autres langues seront enrichies dans une prochaine mise à jour.");e.target.value='fr'}
+});
 </script>
-
-<footer class="nova-footer">
-  <h2>NOVA</h2>
-  <p>Fais fleurir la beauté qui est en toi.</p>
-  <p>© 2026 NOVA. Tous droits réservés.</p>
-  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    ↑ Retour en haut
-  </button>
-</footer>
-
-
-<button id="backToTop" aria-label="Retour en haut"
-  onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-  ↑
-</button>
-
-<script>
-  const backToTop = document.getElementById("backToTop");
-
-  window.addEventListener("scroll", function () {
-    if (window.scrollY > 300) {
-      backToTop.classList.add("visible");
-    } else {
-      backToTop.classList.remove("visible");
-    }
-  });
-</script>
-
-</button>
-
-<button id="themeToggle" aria-label="Activer le mode nuit">
-  🌙 Mode nuit
-</button>
-
-<script>
-   const themeToggle = document.getElementById("themeToggle");
-
-  if (localStorage.getItem("novaTheme") === "dark") {
-    document.body.classList.add("dark-mode");
-    themeToggle.textContent = "☀️ Mode jour";
-    themeToggle.setAttribute("aria-label", "Activer le mode jour");
-  }
-
-  themeToggle.addEventListener("click", function () {
-    document.body.classList.toggle("dark-mode");
-
-    const isDark = document.body.classList.contains("dark-mode");
-
-    localStorage.setItem("novaTheme", isDark ? "dark" : "light");
-
-    themeToggle.textContent = isDark ? "☀️ Mode jour" : "🌙 Mode nuit";
-    themeToggle.setAttribute(
-      "aria-label",
-      isDark ? "Activer le mode jour" : "Activer le mode nuit"
-    );
-  });
-</script>
-
 </body>
 </html>
-
